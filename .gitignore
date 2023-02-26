@@ -5,7 +5,7 @@
 
 # testing
 /coverage
-.http
+*.http
 
 # production
 /build

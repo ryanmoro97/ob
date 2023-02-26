@@ -3,13 +3,13 @@ Grabs product data from PostgreSQL db table 'product' via axios api call and dis
 
 start client & server concurrently - npm start 
 
-server: - nodemon server.js
-installed packages: cors pg express nodemon
-server/database/create-db.js: sets up database and inserts product from products.js
-npm run create-db (from inside server directory) - currently just inserts product, assumes db and product table is created.
+server: - nodemon server.js\
+installed packages: cors pg express nodemon\
+server/database/create-db.js: sets up database and inserts product from products.js\
+npm run create-db (from inside server directory) - currently just inserts product, assumes db and product table is created.\
 
 
-client: - npm start
+client: - npm start\
 installed packages: axios bootstrap
 
 ### `npm start`
