@@ -1,25 +1,5 @@
 const pool = require('./db');
 const products = require('./products');
-
-// drop database if it exists
-const dropDatabase = async () => {
-    try {
-      await pool.query('DROP DATABASE IF EXISTS ${process.env.DB_NAME}');
-      console.log('Database dropped');
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  
-// create a new database
-const createDatabase = async () => {
-    try {
-    await pool.query('CREATE DATABASE ${process.env.DB_NAME}');
-    console.log('Database created');
-} catch (err) {
-    console.error(err);
-    }
-};
   
 // connect and create a table named "product"
 const createProductTable = async () => {
