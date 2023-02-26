@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+PERN Stack Template
+Grabs product data from PostgreSQL db table 'product' via axios api call and displays it
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+start client & server concurrently - npm start 
 
-## Available Scripts
+server: - nodemon server.js
+installed packages: cors pg express nodemon
+server/database/create-db.js: sets up database and inserts product from products.js
+npm run create-db (from inside server directory) - currently just inserts product, assumes db and product table is created.
 
-In the project directory, you can run:
+
+client: - npm start
+installed packages: axios bootstrap
 
 ### `npm start`
 
@@ -14,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+### `npm test` 
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
