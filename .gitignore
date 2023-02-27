@@ -13,4 +13,4 @@ client/*.http
 npm-debug.log*
 
 #macintosh :D
-.DS_Store/
+.DS_Store
