@@ -12,6 +12,7 @@ function App() {
       .then((response) => setProducts(response.data))
       .catch((error) => console.log(error));
   }, []);
+  console.log(products)
 
   return (
     <div className='container'>
