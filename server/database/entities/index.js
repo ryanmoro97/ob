@@ -1,6 +1,6 @@
 const Products = require('./products');
-const UPC = require('./upc');
-const MSRP = require('./msrp');
+const UPC = require('./product_upc');
+const MSRP = require('./product_msrp');
 
 module.exports = {
     Products,
