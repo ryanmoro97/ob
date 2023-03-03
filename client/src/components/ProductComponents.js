@@ -6,6 +6,7 @@ export function ProductTable({ products }) {
       <thead>
         <tr>
           <th>ID</th>
+          <th>Brand</th>
           <th>Description</th>
           <th>Sku</th>
           <th>upc</th>
@@ -16,6 +17,7 @@ export function ProductTable({ products }) {
         {products.map((product) => (
           <tr key={product.id}>
             <td>{product.id}</td>
+            <td>{product.brand}</td>
             <td>{product.description}</td>
             <td>{product.sku}</td>
             <td>{product.upc}</td>
