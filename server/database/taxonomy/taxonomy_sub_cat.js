@@ -1,14 +1,14 @@
 module.exports = [
     {
       id: 1,
-      value: 1
+      value: 'Bag'
     },
     {
       id: 2,
-      value: 2
+      value: 'Rear Derailluer'
     },
     {
       id: 3,
-      value: 2
-    },
+      value: 'Suspension'
+    }
   ];

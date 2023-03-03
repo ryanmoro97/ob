@@ -1,10 +1,14 @@
 module.exports = [
     {
-      id: 1,
-      value: 'Fox'
+      id: 30,
+      value: 'Bontrager'
     },
     {
-      id: 2,
+      id: 274,
       value: 'Shimano'
     },
+    {
+      id: 327,
+      value: 'Trek'
+    }
   ];

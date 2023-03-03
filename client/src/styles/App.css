@@ -1,41 +1,13 @@
-.App {
-  text-align: center;
-}
-
 body {
-  margin: 0;
-  padding: 0;
   background-color: #282c34;
-  color: white;
 }
 
 .container {
   background-color: #282c34;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(1px + 2vmin);
   color: white;
 }
 
-.App-header {
-  text-decoration: underline;
-}
 
-
-.App-body table {
-  border-collapse: collapse;
-  margin: 0 auto;
-}
-
-.App-body th,td {
-  padding: 4px;
-  text-align: left;
-}
-
-.App-body th {
-  border: 1px solid #ddd;
-  background-color: #4CAF50;
-  color: white;
-}

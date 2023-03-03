@@ -1,0 +1,44 @@
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete input {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: rgb(28, 7, 7);
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.autocomplete-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.autocomplete-options li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.autocomplete-options li:hover,
+.autocomplete-options li:focus {
+  background-color: rgb(115, 207, 109);
+}
+

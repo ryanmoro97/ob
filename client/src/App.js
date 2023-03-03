@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/App.css';
-import { ProductTable } from './components/ProductComponents';
+import { ProductTable } from './components/ProductTable';
+import InputDropDown from './inputs/dropdown';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -20,6 +21,16 @@ function App() {
         <h1>Product List</h1>
       </header>
       <main className='App-body'>
+        <div className='filters'>
+          <InputDropDown 
+            options = {['Bag', 'Rear Derailleur', 'Suspension Fork']}
+            placeholder = 'Sub Category'
+          />
+          <InputDropDown 
+            options = {['Fox', 'Shimano', 'SRAM']}
+            placeholder = 'Brand'
+          />
+        </div>
         <div>
           <ProductTable products={products} />
         </div>
