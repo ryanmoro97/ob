@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/ProductTable.css';
+import ProductFilters from './Filters';
 
 export function ProductTable({ products }) {
   return (
@@ -20,6 +21,7 @@ export function ProductTable({ products }) {
         </tr>
       </thead>
       <tbody>
+        <ProductFilters />
         {products.map((product) => (
           <tr key={product.id}>
             {/* <td>{product.id}</td> */}

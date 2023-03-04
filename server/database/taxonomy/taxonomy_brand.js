@@ -10,5 +10,9 @@ module.exports = [
     {
       id: 327,
       value: 'Trek'
+    },
+    {
+      id: 69,
+      value: 'SRAM'
     }
   ];

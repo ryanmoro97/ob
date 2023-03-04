@@ -34,6 +34,50 @@ app.get('/api/products', (req, res) => {
     });
 });
 
+app.get('/api/taxonomy_brand', (req, res) => {
+  pool.query(`
+    SELECT * FROM taxonomy_brand;
+  `,
+  (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching data');
+    } else {
+      res.send(result.rows);
+    }
+  });
+});
+
+app.get('/api/taxonomy_cat', (req, res) => {
+  pool.query(`
+    SELECT * FROM taxonomy_cat;
+  `,
+  (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching data');
+    } else {
+      res.send(result.rows);
+    }
+  });
+});
+
+app.get('/api/taxonomy_sub_cat', (req, res) => {
+  pool.query(`
+    SELECT * FROM taxonomy_sub_cat;
+  `,
+  (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching data');
+    } else {
+      res.send(result.rows);
+    }
+  });
+});
+
+
+
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
