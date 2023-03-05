@@ -5,14 +5,18 @@
 }
 
 .App-body th,td {
-  border: 1px solid rgb(117, 190, 136);
+  border: 1px solid #614110;
   padding: 5px;
   text-align: left;
   white-space: nowrap;
+  border-radius: 1px;
+  
 }
 
 .App-body th {
-  border: 1px solid #ddd;
-  background-color: #3a833d;
-  color: white;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  background-color: rgb(174, 117, 25);;
+  color: #0b1d2f;
+  text-align: center;
 }

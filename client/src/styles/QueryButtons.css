@@ -1,0 +1,32 @@
+.query-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+  
+.query-button {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: rgb(189, 223, 186);
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 150px;
+    height: 50px;
+}
+
+.query-button:hover {
+    background-color: rgb(255, 115, 0);
+    color: rgb(189, 223, 186);
+}
+  
+.query-button:active {
+    background-color: #000;
+    color: #fff;
+  }

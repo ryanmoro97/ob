@@ -29,34 +29,50 @@ function InputDropDown({ options, placeholder, onChange }) {
 
   function handleOptionClick(option) {
     setInputValue(option);
-    setFilteredOptions([]);
+    // setFilteredOptions([]);
     setIsInputFocused(false);
     if (onChange) {
       onChange(option);
     }
   }
   
-  // TODO
-  // function handleInputBlur() {
-    // setIsInputFocused(false);
-    // setFilteredOptions([]);
-  // }
+  // TODO: This could use a better solution rather than the delay. Although its not noticable delay wise.
+  // Possibly use onMouseDown() to handle option click rather than onClick() to ensure it executes first
+  function handleInputBlur() {
+    setTimeout(() => {
+      setIsInputFocused(false);
+      setFilteredOptions([]);
+    }, 100); // delay to make sure option value populates input before losing focus
+  }
+  
   
 
   function handleInputFocus() {
     setIsInputFocused(true);
+    inputRef.current.select();
   }
 
   function handleKeyDown(event) {
-    if (event.key === 'Enter' || event.key === 'Tab') {
-      event.preventDefault();
+    if (event.key === 'Enter') {
+      // event.preventDefault();
       if (filteredOptions.length > 0) {
-        setInputValue(filteredOptions[0]);
-        if (onChange) {
-          onChange(filteredOptions[0]);
+        if(inputValue !== ''){
+          setInputValue(filteredOptions[0]);
+          if (onChange) {
+            onChange(filteredOptions[0]);
+          }
         }
       }
       setFilteredOptions([]);
+      const currentTd = event.target.closest('td');
+      const nextTd = currentTd.nextElementSibling;
+      if (nextTd) {
+        const nextInput = nextTd.querySelector('input');
+        if (nextInput) {
+          nextInput.focus();
+          event.preventDefault(); // prevent the default behavior for Tab only
+        }
+      }
     }
   }
 
@@ -67,7 +83,7 @@ function InputDropDown({ options, placeholder, onChange }) {
         value={inputValue}
         onChange={handleInputChange}
         onFocus={handleInputFocus}
-        // onBlur={handleInputBlur}
+        onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         ref={inputRef}

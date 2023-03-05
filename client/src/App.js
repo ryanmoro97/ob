@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/App.css';
-import { ProductTable } from './components/ProductTable';
+import ProductTable from './components/ProductTable';
+import QueryButtons from './components/QueryButtons';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -19,6 +20,7 @@ function App() {
       </header>
       <main className='App-body'>
         <div>
+          <QueryButtons />
           <ProductTable products={products} />
         </div>
       </main>

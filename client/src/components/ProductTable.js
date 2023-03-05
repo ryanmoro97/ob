@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/ProductTable.css';
 import ProductFilters from './Filters';
 
-export function ProductTable({ products }) {
+const ProductTable = ({ products }) => {
   return (
     <table>
       <thead>
@@ -12,8 +12,8 @@ export function ProductTable({ products }) {
           <th>Category</th>
           <th>Sub Category</th>
           <th>Description</th>
-          <th>Sku</th>
-          <th>upc</th>
+          <th>SKU</th>
+          <th>UPC</th>
           <th>MSRP</th>
           <th>Size</th>
           <th>Color</th>
@@ -42,3 +42,4 @@ export function ProductTable({ products }) {
   );
 }
 
+export default ProductTable;
