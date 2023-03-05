@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/api/products', (req, res) => {
     pool.query(`
-        SELECT p.id, tb.value AS brand, tc.value AS cat, tsc.value AS subcat, p.description, p.sku, u.value AS upc, m.value AS msrp, s.value AS size, co.value AS color, sp.value AS speed
+        SELECT p.id, tb.value AS brand, tc.value AS cat, tsc.value AS subcat, p.description, p.sku, p.model_id, u.value AS upc, m.value AS msrp, s.value AS size, co.value AS color, sp.value AS speed
         FROM product p
         LEFT JOIN product_brand b ON p.id = b.id
         LEFT JOIN taxonomy_brand tb ON b.value = tb.id

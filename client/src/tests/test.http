@@ -1,3 +1,3 @@
-# GET http://localhost:6969/api/products
+GET http://localhost:6969/api/products
 
-GET http://localhost:6969/api/taxonomy_sub_cat
+# GET http://localhost:6969/api/taxonomy_sub_cat

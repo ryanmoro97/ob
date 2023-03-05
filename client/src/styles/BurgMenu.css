@@ -1,0 +1,53 @@
+/* BurgMenu.css */
+.bm-menu {
+    background-color: #333;
+    padding: 20px 20px;
+    font-size: 25px;
+    height: 30%;
+    border: 4px solid rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.bm-burger-button {
+    position: absolute;
+    width: 36px;
+    height: 30px;
+    left: 20px;
+    top: 20px;
+    transition: all 0.3s ease;
+}
+
+.bm-burger-bars {
+    background: rgb(189, 223, 186);
+    border-radius: 5px;
+}
+
+.bm-cross {
+    background: rgb(189, 223, 186);
+    position: relative;
+}
+
+.bm-menu-wrap {
+    width: 180px !important;
+    height: 30%!important;
+    margin: 5px;
+    
+}
+
+.bm-morph-shape {
+    color: #333;
+  }
+
+.bm-item {
+    color: rgb(189, 223, 186);
+    padding: 5px;
+    margin: 10px;
+    font-weight: bold;
+}
+  
+
+.bm-item:hover {
+    /* background-color: #000; */
+    color: rgb(255, 115, 0);
+}
+

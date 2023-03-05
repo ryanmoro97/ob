@@ -12,6 +12,7 @@ const ProductTable = ({ products }) => {
           <th>Category</th>
           <th>Sub Category</th>
           <th>Description</th>
+          <th>Model_ID</th>
           <th>SKU</th>
           <th>UPC</th>
           <th>MSRP</th>
@@ -29,6 +30,7 @@ const ProductTable = ({ products }) => {
             <td>{product.cat}</td>
             <td>{product.subcat}</td>
             <td>{product.description}</td>
+            <td>{product.model_id}</td>
             <td>{product.sku}</td>
             <td>{product.upc}</td>
             <td>${product.msrp}</td>

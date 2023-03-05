@@ -1,7 +1,7 @@
 module.exports = [
     {
       id: 1,
-      value: 3
+      value: 1
     },
     {
       id: 2,
@@ -9,6 +9,6 @@ module.exports = [
     },
     {
       id: 3,
-      value: 2
+      value: 3
     }
   ];

@@ -33,7 +33,7 @@ module.exports = createTables = async () => {
         CREATE TABLE IF NOT EXISTS product (
             id SERIAL PRIMARY KEY,
             description TEXT,
-            model TEXT,
+            model_id TEXT,
             sku TEXT
         )
         `);

@@ -32,9 +32,9 @@ module.exports = {
     
     insertProducts: async function() {
         try {           
-            const valuesProduct = Products.map((product) => `('${product.id}', '${product.description}', '${product.model}', '${product.sku}')`).join(',');
+            const valuesProduct = Products.map((product) => `('${product.id}', '${product.description}', '${product.model_id}', '${product.sku}')`).join(',');
             await pool.query(`
-            INSERT INTO product (id, description, model, sku)
+            INSERT INTO product (id, description, model_id, sku)
             VALUES ${valuesProduct}
             `);
             console.log('Products inserted');
