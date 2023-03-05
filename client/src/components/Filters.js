@@ -10,6 +10,7 @@ const inputFieldsInitial = [
     { name: 'subcat', label: 'Sub Category', options: [], component: InputDropDown },
     { name: 'description', label: 'Description', component: InputText },
     { name: 'sku', label: 'Sku', component: InputText },
+    { name: 'sku', label: 'Sku', component: InputText },
     { name: 'upc', label: 'upc', component: InputText },
     { name: 'msrp', label: 'MSRP', component: null },
     { name: 'size', label: 'Size', component: InputText },

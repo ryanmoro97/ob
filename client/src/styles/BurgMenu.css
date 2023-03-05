@@ -44,10 +44,12 @@
     margin: 10px;
     font-weight: bold;
 }
-  
 
 .bm-item:hover {
     /* background-color: #000; */
     color: rgb(255, 115, 0);
 }
 
+.bm-burger-bars-hover {
+    background: rgb(255, 115, 0);;
+}
