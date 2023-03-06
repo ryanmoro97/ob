@@ -6,10 +6,10 @@ import axios from 'axios';
 
 const inputFieldsInitial = [
     { name: 'brand', label: 'Brand', options: [], component: InputDropDown },
-    { name: 'cat', label: 'Category', options: [], component: InputDropDown },
-    { name: 'subcat', label: 'Sub Category', options: [], component: InputDropDown },
+    { name: 'category', label: 'Category', options: [], component: InputDropDown },
+    { name: 'sub_category', label: 'Sub Category', options: [], component: InputDropDown },
     { name: 'description', label: 'Description', component: InputText },
-    { name: 'sku', label: 'Sku', component: InputText },
+    { name: 'model_id', label: 'Model ID', component: InputText },
     { name: 'sku', label: 'Sku', component: InputText },
     { name: 'upc', label: 'upc', component: InputText },
     { name: 'msrp', label: 'MSRP', component: null },
@@ -19,7 +19,7 @@ const inputFieldsInitial = [
 ];
 
 function ProductFilters() {
-    const [formData, setFormData] = useState({});
+    // const [formData, setFormData] = useState({});
     const [taxonomyBrand, setTaxonomyBrand] = useState([]);
     const [taxonomyCat, setTaxonomyCat] = useState([]);
     const [taxonomySubCat, setTaxonomySubCat] = useState([]);
@@ -58,9 +58,9 @@ function ProductFilters() {
             switch (field.name) {
             case 'brand':
                 return { ...field, options: taxonomyBrand };
-            case 'subcat':
+            case 'sub_category':
                 return { ...field, options: taxonomySubCat };
-            case 'cat':
+            case 'category':
                 return { ...field, options: taxonomyCat };
             default:
                 return field;
@@ -71,7 +71,8 @@ function ProductFilters() {
     }, [taxonomyBrand, taxonomyCat, taxonomySubCat]);
 
     function handleInputChange(name, value) {
-        setFormData({ ...formData, [name]: value });
+        // setFormData({ ...formData, [name]: value });
+        // console.log('name: ' + name + ', value: ' + value);
     }
   
 
@@ -84,7 +85,7 @@ function ProductFilters() {
                 {InputComponent ? (
                 <InputComponent
                     name={field.name}
-                    placeholder={formData[field.name]}
+                    // placeholder={formData[field.name]}
                     options={(inputFields.find(f => f.name === field.name)?.options || []).map(option => option.value)}
                     onChange={(value) => handleInputChange(field.name, value)}
                     />  

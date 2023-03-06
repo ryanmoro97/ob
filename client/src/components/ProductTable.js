@@ -12,7 +12,7 @@ const ProductTable = ({ products }) => {
           <th>Category</th>
           <th>Sub Category</th>
           <th>Description</th>
-          <th>Model_ID</th>
+          <th>Model ID</th>
           <th>SKU</th>
           <th>UPC</th>
           <th>MSRP</th>

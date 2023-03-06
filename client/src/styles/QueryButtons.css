@@ -8,7 +8,7 @@
 }
   
 .query-button {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     padding: 10px 20px;
     border: 2px solid #000;
@@ -29,4 +29,33 @@
 .query-button:active {
     background-color: #000;
     color: #fff;
-  }
+}
+
+.select {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 5px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: rgb(189, 223, 186);
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 170px;
+    height: 40px;
+}
+
+.select-buttons-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 25px 80px;
+
+}
+
+
+.btns-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+}

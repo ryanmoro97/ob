@@ -9,13 +9,13 @@ function AppRoutes() {
   return (
     <Router>
         <BurgMenu/>
-        {/* <Container> */}
+        <Container>
             <Routes>
                 <Route path="/" element={<Products />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/sumelse" element={<SumElse />} />
             </Routes>
-        {/* </Container> */}
+        </Container>
     </Router>
   );
 }

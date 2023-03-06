@@ -29,7 +29,6 @@ function InputDropDown({ options, placeholder, onChange }) {
 
   function handleOptionClick(option) {
     setInputValue(option);
-    // setFilteredOptions([]);
     setIsInputFocused(false);
     if (onChange) {
       onChange(option);
