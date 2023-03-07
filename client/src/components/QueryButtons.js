@@ -33,8 +33,15 @@ function QueryButtons() {
 
   const handleVendorChange = (selected) => {
     // TODO
-    // update table to display vendor product table
+    // update table to display selected vendor product table
   }
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    const filePath = URL.createObjectURL(file);
+    console.log(filePath);
+  };
+
 
   const buttons = [
     {
@@ -51,6 +58,11 @@ function QueryButtons() {
       label: 'Update',
       onClick: queryUpdate,
       show: selectedMode === 1 || selectedMode === 2,
+    },
+    {
+      label: 'Insert',
+      onClick: queryReset,
+      show:  selectedMode === 2 || selectedMode === 3,
     },
     {
       label: 'Fill Models',
@@ -81,6 +93,9 @@ function QueryButtons() {
         <DropDownMenu options={modeOptions} onChange={handleModeChange}/>
         {selectedMode === 2 && (
           <DropDownMenu options={vendorOptions} onChange={handleVendorChange} />
+        )}
+        {selectedMode === 3 && (
+        <input className = 'file-input' type="file" onChange={handleFileInputChange} />
         )}
       </div>
       <div className="query-buttons-container">

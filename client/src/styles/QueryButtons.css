@@ -57,5 +57,10 @@
 .btns-container {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0px;
+    padding: 10px 70px;
+}
+
+.file-input{
+    color: #282c34;
+    padding: 10px;
 }
