@@ -4,6 +4,11 @@ module.exports = deleteTables = async () => {
     try {
         // TAXONOMY
         await pool.query(`
+        DROP TABLE IF EXISTS taxonomy_vendor
+        `);
+        console.log('taxonomy_vendor table deleted');
+
+        await pool.query(`
         DROP TABLE IF EXISTS taxonomy_brand
         `);
         console.log('taxonomy_brand table deleted');

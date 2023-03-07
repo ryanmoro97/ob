@@ -4,6 +4,14 @@ module.exports = createTables = async () => {
     try {
         // TAXONOMY
         await pool.query(`
+        CREATE TABLE IF NOT EXISTS taxonomy_vendor (
+            id SERIAL PRIMARY KEY,
+            value TEXT
+        )
+        `);
+        console.log('taxonomy_vendor table created');
+
+        await pool.query(`
         CREATE TABLE IF NOT EXISTS taxonomy_brand (
             id SERIAL PRIMARY KEY,
             value TEXT

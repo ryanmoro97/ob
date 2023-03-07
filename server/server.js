@@ -76,6 +76,20 @@ app.get('/api/taxonomy_sub_cat', (req, res) => {
   });
 });
 
+app.get('/api/taxonomy_vendor', (req, res) => {
+  pool.query(`
+    SELECT * FROM taxonomy_vendor;
+  `,
+  (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching data');
+    } else {
+      res.send(result.rows);
+    }
+  });
+});
+
 
 
 app.listen(port, () => {

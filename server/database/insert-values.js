@@ -1,10 +1,17 @@
 const pool = require('./db');
 const { Products, product_UPC, product_MSRP, product_brand, product_sub_cat, product_cat , product_color, product_speed, product_size } = require('./entity_values');
-const { taxonomy_brand, taxonomy_sub_cat, taxonomy_cat} = require('./taxonomy');
+const { taxonomy_vendor, taxonomy_brand, taxonomy_sub_cat, taxonomy_cat} = require('./taxonomy');
 
 module.exports = {
     insertTaxonomy: async function() {
         try {
+            const valuesTaxonomyVendor = taxonomy_vendor.map((vendor) => `('${vendor.id}', '${vendor.value}')`).join(',');
+            await pool.query(`
+            INSERT INTO taxonomy_vendor (id, value)
+            VALUES ${valuesTaxonomyVendor}
+            `);
+            console.log('taxonomy_brand values inserted');
+
             const valuesTaxonomyBrand = taxonomy_brand.map((brand) => `('${brand.id}', '${brand.value}')`).join(',');
             await pool.query(`
             INSERT INTO taxonomy_brand (id, value)

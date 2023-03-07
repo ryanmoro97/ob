@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+
 import '../styles/QueryButtons.css';
 
 import { querySearch } from '../queries/querySearch';
@@ -11,21 +13,14 @@ import { queryBCExport } from '../queries/queryBCExport';
 import DropDownMenu from '../components/DropDownMenu'
 
 const modeOptions = [
-  { id: 1, label: 'Product Table' },
-  { id: 2, label: 'Vendor -> Obsession' },
-  { id: 3, label: 'Excel -> Vendor' }
-];
-
-// TODO this should pull from the same get request in Filters.js: api/taxonomy_brand
-const vendorOptions = [
-  { id: 30, label: 'Bontrager' },
-  { id: 274, label: 'Shimano' },
-  { id: 69, label: 'SRAM' },
-  { id: 327, label: 'Trek' }
+  { id: 1, value: 'Product Table' },
+  { id: 2, value: 'Vendor -> Obsession' },
+  { id: 3, value: 'Excel -> Vendor' }
 ];
 
 function QueryButtons() {
   const [selectedMode, setSelectedMode] = useState(1); 
+  const [vendorOptions, setVendorOptions] = useState([]);
 
   const handleModeChange = (selected) => {
     setSelectedMode(selected.id);
@@ -41,6 +36,16 @@ function QueryButtons() {
     const filePath = URL.createObjectURL(file);
     console.log(filePath);
   };
+
+  useEffect(() => {
+    axios.get('http://localhost:6969/api/taxonomy_vendor')
+    .then((response) => {
+        const options = response.data;
+        console.log(options)
+        setVendorOptions(options);
+    })
+    .catch((error) => console.log(error));
+  }, []);
 
 
   const buttons = [

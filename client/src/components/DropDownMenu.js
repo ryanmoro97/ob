@@ -5,7 +5,7 @@ function DropdownMenu({ options, className, onChange }) {
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const handleChange = (event) => {
-    const selected = options.find(option => option.label === event.target.value);
+    const selected = options.find(option => option.value === event.target.value);
     setSelectedOption(selected);
     onChange(selected);
   };
@@ -13,10 +13,10 @@ function DropdownMenu({ options, className, onChange }) {
 
   return (
     <div>
-      <select className = "select" value={selectedOption.label} onChange={handleChange}>
+      <select className = "select" value={selectedOption.value} onChange={handleChange}>
         {options.map((option) => (
-          <option className = "select-options" key={option.id} value={option.label}>
-            {option.label}
+          <option className = "select-options" key={option.id} value={option.value}>
+            {option.value}
           </option>
         ))}
       </select>
