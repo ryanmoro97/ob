@@ -19,11 +19,11 @@ const inputFieldsInitial = [
 ];
 
 function ProductFilters() {
-    // const [formData, setFormData] = useState({});
     const [taxonomyBrand, setTaxonomyBrand] = useState([]);
     const [taxonomyCat, setTaxonomyCat] = useState([]);
     const [taxonomySubCat, setTaxonomySubCat] = useState([]);
     const [inputFields, setInputFields] = useState(inputFieldsInitial);
+    // const [inputValues, setInputValues] = useState({});
 
     useEffect(() => {
         axios.get('http://localhost:6969/api/taxonomy_brand')
@@ -32,7 +32,7 @@ function ProductFilters() {
             setTaxonomyBrand(options);
         })
         .catch((error) => console.log(error));
-    }, [taxonomyBrand]);
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:6969/api/taxonomy_cat')
@@ -41,7 +41,7 @@ function ProductFilters() {
             setTaxonomyCat(options);
         })
         .catch((error) => console.log(error));
-    }, [taxonomyCat]);
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:6969/api/taxonomy_sub_cat')
@@ -50,7 +50,7 @@ function ProductFilters() {
             setTaxonomySubCat(options);
         })
         .catch((error) => console.log(error));
-    }, [taxonomySubCat]);
+    }, []);
 
     useEffect(() => {
         setInputFields(fields => {
@@ -66,13 +66,14 @@ function ProductFilters() {
                 return field;
             }
         });
+        console.log("updatedFields: " + updatedFields);
         return updatedFields;
         });
     }, [taxonomyBrand, taxonomyCat, taxonomySubCat]);
 
     function handleInputChange(name, value) {
-        // setFormData({ ...formData, [name]: value });
         // console.log('name: ' + name + ', value: ' + value);
+        // setInputValues((values) => ({ ...values, [name]: value }));
     }
   
 

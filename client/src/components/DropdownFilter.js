@@ -43,8 +43,6 @@ function InputDropDown({ options, placeholder, onChange }) {
       setFilteredOptions([]);
     }, 100); // delay to make sure option value populates input before losing focus
   }
-  
-  
 
   function handleInputFocus() {
     setIsInputFocused(true);

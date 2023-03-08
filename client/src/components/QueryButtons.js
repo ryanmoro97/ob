@@ -89,19 +89,19 @@ function QueryButtons() {
       onClick: queryAIMExport,
       show: selectedMode === 1,
     },
-  ];
+  ]; 
 
 
   return (
     <div className='btns-container'>
       <div className="select-buttons-container">
         <DropDownMenu options={modeOptions} onChange={handleModeChange}/>
-        {selectedMode === 2 && (
+        {selectedMode === 2 ? (
           <DropDownMenu options={vendorOptions} onChange={handleVendorChange} />
-        )}
-        {selectedMode === 3 && (
+        ) : null}
+        {selectedMode === 3 ? (
         <input className = 'file-input' type="file" onChange={handleFileInputChange} />
-        )}
+        ) : null}
       </div>
       <div className="query-buttons-container">
         {buttons.map((button, index) => (
