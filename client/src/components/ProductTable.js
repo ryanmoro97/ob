@@ -26,17 +26,17 @@ const ProductTable = ({ products }) => {
         {products.map((product) => (
           <tr key={product.id}>
             {/* <td>{product.id}</td> */}
-            <td>{product.brand}</td>
-            <td>{product.cat}</td>
-            <td>{product.subcat}</td>
+            <td>{product.product_brand.taxonomy_brand.value}</td>
+            <td>{product.product_category.taxonomy_category.value}</td>
+            <td>{product.product_sub_category.taxonomy_sub_category.value}</td>
             <td>{product.description}</td>
             <td>{product.model_id}</td>
             <td>{product.sku}</td>
-            <td>{product.upc}</td>
-            <td>${product.msrp}</td>
-            <td>{product.size}</td>
-            <td>{product.color}</td>
-            <td>{product.speed}</td>
+            <td>{product.product_UPC.value}</td>
+            <td>${product.product_MSRP.value}</td>
+            {/* <td>{product.product_size}</td> */}
+            {/* <td>{product.product_colors.value}</td> */}
+            {/* <td>{product.product_speed}</td> */}
           </tr>
         ))}
       </tbody>

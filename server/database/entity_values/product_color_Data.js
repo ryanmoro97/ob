@@ -1,10 +1,10 @@
 module.exports = [
     {
-      id: 1,
+      productId: 1,
       value: 'Black'
     },
     {
-      id: 3,
+      productId: 3,
       value: 'Radioactive Orange'
     }
   ];
