@@ -1,13 +1,13 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import InputDropDown from './DropdownFilter';
 import InputText from './TextFilter';
-
-import axios from 'axios';
+import filtersStore from '../redux'
 
 const inputFieldsInitial = [
-    { name: 'brand', label: 'Brand', options: [], component: InputDropDown },
-    { name: 'category', label: 'Category', options: [], component: InputDropDown },
-    { name: 'sub_category', label: 'Sub Category', options: [], component: InputDropDown },
+    { name: 'brand', label: 'Brand', options: [], component: InputDropDown, reducer: 'SET_BRAND_FILTER' },
+    { name: 'category', label: 'Category', options: [], component: InputDropDown, reducer: 'SET_CATEGORY_FILTER' },
+    { name: 'sub_category', label: 'Sub Category', options: [], component: InputDropDown, reducer: 'SET_SUB_CATEGORY_FILTER' },
     { name: 'description', label: 'Description', component: InputText },
     { name: 'model_id', label: 'Model ID', component: InputText },
     { name: 'sku', label: 'Sku', component: InputText },
@@ -66,13 +66,15 @@ function ProductFilters() {
                 return field;
             }
         });
-        console.log("updatedFields: " + updatedFields);
         return updatedFields;
         });
     }, [taxonomyBrand, taxonomyCat, taxonomySubCat]);
 
-    function handleInputChange(name, value) {
-        // console.log('name: ' + name + ', value: ' + value);
+    function handleInputChange(name, value, reducer) {
+        console.log('name: ' + name + 'reducer: ' + reducer + ', value: ' + value);
+        filtersStore.dispatch({ type: reducer, payload: { value } });
+        // const filtersState = filtersStore.getState();
+        // console.log(filtersState);
         // setInputValues((values) => ({ ...values, [name]: value }));
     }
   
@@ -88,7 +90,7 @@ function ProductFilters() {
                     name={field.name}
                     // placeholder={formData[field.name]}
                     options={(inputFields.find(f => f.name === field.name)?.options || []).map(option => option.value)}
-                    onChange={(value) => handleInputChange(field.name, value)}
+                    onChange={(value) => handleInputChange(field.name, value, field.reducer)}
                     />  
                 ) : null}
             </td>

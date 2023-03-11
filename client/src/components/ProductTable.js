@@ -34,9 +34,9 @@ const ProductTable = ({ products }) => {
             <td>{product.sku}</td>
             <td>{product.product_UPC.value}</td>
             <td>${product.product_MSRP.value}</td>
-            {/* <td>{product.product_size}</td> */}
-            {/* <td>{product.product_colors.value}</td> */}
-            {/* <td>{product.product_speed}</td> */}
+            <td>{product.product_size ? product.product_size.value : ''}</td>
+            <td>{product.product_colors.length > 0 ? product.product_colors[0].value : ''}</td>
+            <td>{product.product_speed ? product.product_speed.value : ''}</td>
           </tr>
         ))}
       </tbody>

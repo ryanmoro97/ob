@@ -1,16 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import '../styles/QueryButtons.css';
 
-import { querySearch } from '../queries/querySearch';
-import { queryReset } from '../queries/queryReset';
-import { queryUpdate } from '../queries/queryUpdate';
-import { queryFillModels } from '../queries/queryFillModels';
-import { queryUpdateExport } from '../queries/queryUpdateExport';
-import { queryAIMExport } from '../queries/queryAIMExport';
-import { queryBCExport } from '../queries/queryBCExport';
 import DropDownMenu from '../components/DropDownMenu'
+
 
 const modeOptions = [
   { id: 1, value: 'Product Table' },
@@ -18,8 +12,8 @@ const modeOptions = [
   { id: 3, value: 'Excel -> Vendor' }
 ];
 
-function QueryButtons() {
-  const [selectedMode, setSelectedMode] = useState(1); 
+function QueryButtons({ triggerFetchData, queryUpdate, queryReset, queryFillModels, queryUpdateExport, queryBCExport, queryAIMExport}) {
+  const [selectedMode, setSelectedMode] = useState(1);
   const [vendorOptions, setVendorOptions] = useState([]);
 
   const handleModeChange = (selected) => {
@@ -39,24 +33,23 @@ function QueryButtons() {
 
   useEffect(() => {
     axios.get('http://localhost:6969/api/taxonomy_vendor')
-    .then((response) => {
+      .then((response) => {
         const options = response.data;
-        console.log(options)
         setVendorOptions(options);
-    })
-    .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
   }, []);
 
 
   const buttons = [
     {
       label: 'Search',
-      onClick: querySearch,
+      onClick: triggerFetchData,
       show: true,
     },
     {
       label: 'Reset',
-      onClick: queryReset,
+      onClick:  queryReset,
       show: true,
     },
     {
@@ -67,7 +60,7 @@ function QueryButtons() {
     {
       label: 'Insert',
       onClick: queryReset,
-      show:  selectedMode === 2 || selectedMode === 3,
+      show: selectedMode === 2 || selectedMode === 3,
     },
     {
       label: 'Fill Models',
@@ -89,18 +82,18 @@ function QueryButtons() {
       onClick: queryAIMExport,
       show: selectedMode === 1,
     },
-  ]; 
+  ];
 
 
   return (
     <div className='btns-container'>
       <div className="select-buttons-container">
-        <DropDownMenu options={modeOptions} onChange={handleModeChange}/>
+        <DropDownMenu options={modeOptions} onChange={handleModeChange} />
         {selectedMode === 2 ? (
           <DropDownMenu options={vendorOptions} onChange={handleVendorChange} />
         ) : null}
         {selectedMode === 3 ? (
-        <input className = 'file-input' type="file" onChange={handleFileInputChange} />
+          <input className='file-input' type="file" onChange={handleFileInputChange} />
         ) : null}
       </div>
       <div className="query-buttons-container">
