@@ -35,13 +35,10 @@ function InputDropDown({ options, placeholder, onChange }) {
     }
   }
   
-  // TODO: This could use a better solution rather than the delay. Although its not noticable delay wise.
-  // Possibly use onMouseDown() to handle option click rather than onClick() to ensure it executes first
   function handleInputBlur() {
     setTimeout(() => {
       setIsInputFocused(false);
-      setFilteredOptions([]);
-    }, 100); // delay to make sure option value populates input before losing focus
+    }, 100); 
   }
 
   function handleInputFocus() {

@@ -1,8 +1,9 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import InputDropDown from './DropdownFilter';
 import InputText from './TextFilter';
 import filtersStore from '../redux'
+import getTaxonomyValues from '../api/taxonomyAPI';
 
 const inputFieldsInitial = [
     { name: 'brand', label: 'Brand', options: [], component: InputDropDown, reducer: 'SET_BRAND_FILTER' },
@@ -26,32 +27,17 @@ function ProductFilters() {
     // const [inputValues, setInputValues] = useState({});
 
     useEffect(() => {
-        axios.get('http://localhost:6969/api/taxonomy_brand')
-        .then((response) => {
-            const options = response.data.map(brand => ({ id: brand.id, value: brand.value }));
-            setTaxonomyBrand(options);
-        })
-        .catch((error) => console.log(error));
+        async function fetchTaxonomyData() {
+            const brandOptions = await getTaxonomyValues('taxonomy_brand');
+            setTaxonomyBrand(brandOptions);
+            const catOptions = await getTaxonomyValues('taxonomy_cat');
+            setTaxonomyCat(catOptions);
+            const subCatOptions = await getTaxonomyValues('taxonomy_sub_cat');
+            setTaxonomySubCat(subCatOptions);
+        }
+        fetchTaxonomyData();
     }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:6969/api/taxonomy_cat')
-        .then((response) => {
-            const options = response.data.map(cat => ({ id: cat.id, value: cat.value }));
-            setTaxonomyCat(options);
-        })
-        .catch((error) => console.log(error));
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:6969/api/taxonomy_sub_cat')
-        .then((response) => {
-            const options = response.data.map(subcat => ({ id: subcat.id, value: subcat.value }));
-            setTaxonomySubCat(options);
-        })
-        .catch((error) => console.log(error));
-    }, []);
-
+      
     useEffect(() => {
         setInputFields(fields => {
         const updatedFields = fields.map(field => {
@@ -71,11 +57,7 @@ function ProductFilters() {
     }, [taxonomyBrand, taxonomyCat, taxonomySubCat]);
 
     function handleInputChange(name, value, reducer) {
-        console.log('name: ' + name + 'reducer: ' + reducer + ', value: ' + value);
         filtersStore.dispatch({ type: reducer, payload: { value } });
-        // const filtersState = filtersStore.getState();
-        // console.log(filtersState);
-        // setInputValues((values) => ({ ...values, [name]: value }));
     }
   
 
@@ -87,11 +69,10 @@ function ProductFilters() {
             <td key={field.name}>
                 {InputComponent ? (
                 <InputComponent
-                    name={field.name}
-                    // placeholder={formData[field.name]}
+                    name={field.name} 
                     options={(inputFields.find(f => f.name === field.name)?.options || []).map(option => option.value)}
                     onChange={(value) => handleInputChange(field.name, value, field.reducer)}
-                    />  
+                    />
                 ) : null}
             </td>
             );
@@ -101,6 +82,3 @@ function ProductFilters() {
 }
 
 export default ProductFilters;
-
-
-// 

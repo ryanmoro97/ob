@@ -1,5 +1,8 @@
+import filtersStore from '../redux'
+
+
 const queryReset = () => {
-    // TODO: Implement the logic for resetting the query
+    filtersStore.dispatch({ type: 'RESET_FILTERS' });
 };
 
 export default queryReset;

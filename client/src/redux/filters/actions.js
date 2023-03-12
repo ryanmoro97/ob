@@ -1,4 +1,8 @@
-import {  SET_BRAND_FILTER, SET_CATEGORY_FILTER, SET_SUB_CATEGORY_FILTER } from './types';
+import { RESET_FILTERS , SET_BRAND_FILTER, SET_CATEGORY_FILTER, SET_SUB_CATEGORY_FILTER } from './types';
+
+export function resetFilters() {
+    return { type: RESET_FILTERS };
+}
 
 export function setBrandFilter(brandFilter) {
     return { type: SET_BRAND_FILTER, payload: brandFilter };

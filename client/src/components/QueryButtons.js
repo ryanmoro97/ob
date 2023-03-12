@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import '../styles/QueryButtons.css';
 
 import DropDownMenu from '../components/DropDownMenu'
-
+import getTaxonomyValues from '../api/taxonomyAPI';
 
 const modeOptions = [
   { id: 1, value: 'Product Table' },
@@ -32,12 +32,11 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryReset, queryFillMode
   };
 
   useEffect(() => {
-    axios.get('http://localhost:6969/api/taxonomy_vendor')
-      .then((response) => {
-        const options = response.data;
-        setVendorOptions(options);
-      })
-      .catch((error) => console.log(error));
+    async function getVendorList() {
+      const options = await getTaxonomyValues('taxonomy_vendor');
+      setVendorOptions(options);
+    }
+    getVendorList();
   }, []);
 
 

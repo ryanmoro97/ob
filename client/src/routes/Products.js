@@ -19,7 +19,6 @@ const Products = () => {
             const data = await getProducts();
             setProducts(data);
         };
-        
         if (fetchDataFlag) {
             fetchData();
             setFetchDataFlag(false); 

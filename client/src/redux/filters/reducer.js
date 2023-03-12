@@ -1,4 +1,4 @@
-import { SET_BRAND_FILTER , SET_CATEGORY_FILTER, SET_SUB_CATEGORY_FILTER } from './types';
+import { RESET_FILTERS, SET_BRAND_FILTER , SET_CATEGORY_FILTER, SET_SUB_CATEGORY_FILTER } from './types';
 
 const initialState = {
     brandFilter: '',
@@ -8,6 +8,8 @@ const initialState = {
 
 export default function filtersReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_FILTERS:
+        return initialState;
     case SET_BRAND_FILTER:
         return { ...state, brandFilter: action.payload };
     case SET_CATEGORY_FILTER:

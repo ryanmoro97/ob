@@ -2,8 +2,5 @@
 import filtersStore from '../redux'
 
 export default function querySearch() {
-    const filtersState = filtersStore.getState();
-
-    console.log("HELLOOO FROM QUERY SEARCH");
-    console.log(filtersState);
+    // set redux filters to empty 
 }

@@ -3,6 +3,7 @@ import '../styles/ProductTable.css';
 import ProductFilters from './Filters';
 
 const ProductTable = ({ products }) => {
+  // console.log("HERE: ",products);
   return (
     <table>
       <thead>
