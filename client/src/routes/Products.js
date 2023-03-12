@@ -32,7 +32,10 @@ const Products = () => {
                     <div>
                         <QueryButtons
                             triggerFetchData={() => setFetchDataFlag(true)}
-                            queryReset={queryReset}
+                            queryReset={() => {
+                                queryReset();
+                                setFetchDataFlag(true);
+                            }}
                             queryUpdate={queryUpdate}
                             queryFillModels={queryFillModels}
                             queryUpdateExport={queryUpdateExport}

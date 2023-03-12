@@ -38,6 +38,7 @@ function InputDropDown({ options, placeholder, onChange }) {
   function handleInputBlur() {
     setTimeout(() => {
       setIsInputFocused(false);
+      // setFilteredOptions([]);
     }, 100); 
   }
 
