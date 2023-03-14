@@ -48,8 +48,7 @@ function InputDropDown({ options, placeholder, onChange }) {
   }
 
   function handleKeyDown(event) {
-    if (event.key === 'Enter') {
-      // event.preventDefault();
+    if (event.key === 'Enter' || event.key === 'Tab') {
       if (filteredOptions.length > 0) {
         if(inputValue !== ''){
           setInputValue(filteredOptions[0]);

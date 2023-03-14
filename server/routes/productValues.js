@@ -1,11 +1,25 @@
-const { Product, ProductBrand, ProductCategory, ProductSubCategory, ProductUPC, ProductMSRP, ProductSize, ProductColor, ProductSpeed, TaxonomyBrand, TaxonomyCategory, TaxonomySubCategory } = require('../database/create-tables');
+const { Op } = require('sequelize');
+
+const { 
+  Product, 
+  ProductBrand, 
+  ProductCategory, 
+  ProductSubCategory, 
+  ProductUPC, 
+  ProductMSRP, 
+  ProductSize, 
+  ProductColor, 
+  ProductSpeed, 
+  TaxonomyBrand, 
+  TaxonomyCategory, 
+  TaxonomySubCategory 
+} = require('../database/create-tables');
 
 const getProductsValues = async (req, res) => {
     const filters = req.query || {};
-    // const limit = 10;
-    // console.log("FILTER: ", filters.brandFilter.value);
 
-    // TODO Change filters to use taxonomyID instead of value as its passed in req.query
+    // const limit = 10;
+    console.log("FILTER: ", filters);
     let whereClause = {};
     if (filters.brandFilter) {
       whereClause = { ...whereClause, '$product_brand->taxonomy_brand.value$': filters.brandFilter.value };
@@ -16,7 +30,27 @@ const getProductsValues = async (req, res) => {
     if (filters.subCategoryFilter) {
       whereClause = { ...whereClause, '$product_sub_category->taxonomy_sub_category.value$': filters.subCategoryFilter.value };
     }
-    //, where: {value: {[Op.like]: `${'filters.upcFilter.value'}%`}}
+    if (filters.descriptionFilter) {
+      whereClause = { ...whereClause, description: { [Op.iLike]: `%${filters.descriptionFilter.value}%` }};
+    }
+    if (filters.modelIdFilter) { // matches beginning onwards
+      whereClause = { ...whereClause, model_id: { [Op.iLike]: `${filters.modelIdFilter.value}%` }};
+    } 
+    if (filters.skuFilter) {
+      whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter.value}%` }};
+    }
+    if (filters.upcFilter) {
+      whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter.value}%` }};
+    }
+    if (filters.sizeFilter) {
+      whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter.value}%` }};
+    }
+    if (filters.colorFilter) {
+      whereClause = { ...whereClause, '$product_colors.value$': { [Op.iLike]: `%${filters.colorFilter.value}%` }};
+    }
+    if (filters.speedFilter) {
+      whereClause = { ...whereClause, '$product_speed.value$': { [Op.iLike]: `%${filters.speedFilter.value}%` }};
+    }
   
     try {
         const products = await Product.findAll({

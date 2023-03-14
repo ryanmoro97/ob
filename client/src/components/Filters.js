@@ -9,14 +9,14 @@ const inputFieldsInitial = [
     { name: 'brand', label: 'Brand', options: [], component: InputDropDown, reducer: 'SET_BRAND_FILTER' },
     { name: 'category', label: 'Category', options: [], component: InputDropDown, reducer: 'SET_CATEGORY_FILTER' },
     { name: 'sub_category', label: 'Sub Category', options: [], component: InputDropDown, reducer: 'SET_SUB_CATEGORY_FILTER' },
-    { name: 'description', label: 'Description', component: InputText },
-    { name: 'model_id', label: 'Model ID', component: InputText },
-    { name: 'sku', label: 'Sku', component: InputText },
-    { name: 'upc', label: 'upc', component: InputText },
-    { name: 'msrp', label: 'MSRP', component: null },
-    { name: 'size', label: 'Size', component: InputText },
-    { name: 'color', label: 'Color', component: InputText },
-    { name: 'speed', label: 'Speed', component: InputText }
+    { name: 'description', label: 'Description', component: InputText, reducer: 'SET_DESCRIPTION_FILTER' },
+    { name: 'model_id', label: 'Model ID', component: InputText, reducer: 'SET_MODEL_ID_FILTER' },
+    { name: 'sku', label: 'Sku', component: InputText, reducer: 'SET_SKU_FILTER' },
+    { name: 'upc', label: 'upc', component: InputText, reducer: 'SET_UPC_FILTER' },
+    { name: 'msrp', label: 'MSRP', component: null }, //, reducer: 'SET_MSRP_FILTER'
+    { name: 'size', label: 'Size', component: InputText, reducer: 'SET_SIZE_FILTER' },
+    { name: 'color', label: 'Color', component: InputText, reducer: 'SET_COLOR_FILTER' },
+    { name: 'speed', label: 'Speed', component: InputText, reducer: 'SET_SPEED_FILTER' }
 ];
 
 function ProductFilters() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/ProductTable.css';
-import ProductFilters from './Filters';
+import Filters from './Filters';
 
 const ProductTable = ({ products }) => {
   // console.log("HERE: ",products);
@@ -23,7 +23,7 @@ const ProductTable = ({ products }) => {
         </tr>
       </thead>
       <tbody>
-        <ProductFilters />
+        <Filters />
         {products.map((product) => (
           <tr key={product.id}>
             {/* <td>{product.id}</td> */}
