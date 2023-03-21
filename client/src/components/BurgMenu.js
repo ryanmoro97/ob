@@ -6,7 +6,8 @@ function BurgMenu() {
   return (
     <Menu>
       <a className='menu-item' href='/products'>Products</a>
-      <a className='menu-item' href='/sumelse'>SumElse</a>
+      <a className='menu-item' href='/sumelse'>AIM</a>
+      <a className='menu-item' href='/sumelse'>BigCommerce</a>
     </Menu>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SumElse = () => {
+const AIM = () => {
   return (
     <div>
       <h1>made u look</h1>
@@ -8,4 +8,4 @@ const SumElse = () => {
   );
 };
 
-export default SumElse;
+export default AIM;
