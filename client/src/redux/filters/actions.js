@@ -6,11 +6,8 @@ import {
     SET_DESCRIPTION_FILTER,
     SET_MODEL_ID_FILTER,
     SET_SKU_FILTER,
-    SET_UPC_FILTER,
-    // SET_MSRP_FILTER,
-    SET_SIZE_FILTER,
-    SET_COLOR_FILTER,
-    SET_SPEED_FILTER
+    SET_BARCODE_FILTER,
+    SET_PART_NUM_FILTER,
 } from './types';
 
 export function resetFilters() {
@@ -41,22 +38,10 @@ export function setSkuFilter(skuFilter) {
     return { type: SET_SKU_FILTER, payload: skuFilter };
 }
 
-export function setUpcFilter(upcFilter) {
-    return { type: SET_UPC_FILTER, payload: upcFilter };
+export function setBarcodeFilter(barcodeFilter) {
+    return { type: SET_BARCODE_FILTER, payload: barcodeFilter };
 }
 
-// export function setMsrpFilter(msrpFilter) {
-//     return { type: SET_MSRP_FILTER, payload: msrpFilter };
-// }
-
-export function setSizeFilter(sizeFilter) {
-    return { type: SET_SIZE_FILTER, payload: sizeFilter };
-}
-
-export function setColorFilter(colorFilter) {
-    return { type: SET_COLOR_FILTER, payload: colorFilter };
-}
-
-export function setSpeedFilter(speedFilter) {
-    return { type: SET_SPEED_FILTER, payload: speedFilter };
+export function setPartNumFilter(partNumFilter) {
+    return { type: SET_PART_NUM_FILTER, payload: partNumFilter };
 }

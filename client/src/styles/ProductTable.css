@@ -20,3 +20,8 @@
   color: #0b1d2f;
   text-align: center;
 }
+
+.ag-theme-alpine {
+  height: 100%;
+  width: 100%;
+}

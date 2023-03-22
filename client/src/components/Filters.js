@@ -12,14 +12,11 @@ const inputFieldsInitial = [
     { name: 'description', label: 'Description', component: InputText, reducer: 'SET_DESCRIPTION_FILTER' },
     { name: 'model_id', label: 'Model ID', component: InputText, reducer: 'SET_MODEL_ID_FILTER' },
     { name: 'sku', label: 'Sku', component: InputText, reducer: 'SET_SKU_FILTER' },
-    { name: 'upc', label: 'upc', component: InputText, reducer: 'SET_UPC_FILTER' },
-    { name: 'msrp', label: 'MSRP', component: null }, //, reducer: 'SET_MSRP_FILTER'
-    { name: 'size', label: 'Size', component: InputText, reducer: 'SET_SIZE_FILTER' },
-    { name: 'color', label: 'Color', component: InputText, reducer: 'SET_COLOR_FILTER' },
-    { name: 'speed', label: 'Speed', component: InputText, reducer: 'SET_SPEED_FILTER' }
+    { name: 'barcode', label: 'Barcode', component: InputText, reducer: 'SET_BARCODE_FILTER' },
+    { name: 'partnum', label: 'Part Number', component: InputText, reducer: 'SET_PART_NUM_FILTER' },
 ];
 
-function ProductFilters() {
+function Filters() {
     const [taxonomyBrand, setTaxonomyBrand] = useState([]);
     const [taxonomyCat, setTaxonomyCat] = useState([]);
     const [taxonomySubCat, setTaxonomySubCat] = useState([]);
@@ -67,6 +64,7 @@ function ProductFilters() {
             const InputComponent = field.component;
             return (
             <td key={field.name}>
+                <label htmlFor={field.name}>{field.label}</label>
                 {InputComponent ? (
                 <InputComponent
                     name={field.name}
@@ -83,4 +81,4 @@ function ProductFilters() {
     );
 }
 
-export default ProductFilters;
+export default Filters;

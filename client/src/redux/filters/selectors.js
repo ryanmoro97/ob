@@ -22,22 +22,10 @@ export function getSkuFilter(state) {
     return state.filters.skuFilter;
 }
 
-export function getUpcFilter(state) {
-    return state.filters.upcFilter;
+export function getBarcodeFilter(state) {
+    return state.filters.barcodeFilter;
 }
 
-// export function getMsrpFilter(state) {
-//     return state.filters.msrpFilter;
-// }
-
-export function getSizeFilter(state) {
-    return state.filters.sizeFilter;
-}
-
-export function getColorFilter(state) {
-    return state.filters.colorFilter;
-}   
-
-export function getSpeedFilter(state) {
-    return state.filters.speedFilter;
+export function getPartNumFilter(state) {
+    return state.filters.partNumFilter;
 }

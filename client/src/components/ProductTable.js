@@ -1,5 +1,5 @@
 import React from 'react';
-import Filters from './Filters';
+
 import '../styles/ProductTable.css';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -16,12 +16,26 @@ const ProductTable = ({ products }) => {
   
     // get .value for nested objects
     let field = header;
+    let filter = 'agTextColumnFilter'; // default to text filter
+    let filterParams = {}; // default empty filterParams object
     if (header === 'product_brand') {
       field = 'product_brand.taxonomy_brand.value';
+      filter = 'agSetColumnFilter';
+      filterParams = {
+        values: ['A', 'B', 'C'],
+      };
     } else if (header === 'product_category') {
       field = 'product_category.taxonomy_category.value';
+      filter = 'agSetColumnFilter';
+      filterParams = {
+        values: products.map((product) => product.product_category.taxonomy_category.value).filter((value, index, self) => self.indexOf(value) === index),
+      };
     } else if (header === 'product_sub_category') {
       field = 'product_sub_category.taxonomy_sub_category.value';
+      filter = 'agSetColumnFilter';
+      filterParams = {
+        values: products.map((product) => product.product_sub_category.taxonomy_sub_category.value).filter((value, index, self) => self.indexOf(value) === index),
+      };
     } else if (header === 'product_colors') {
       // Use a custom value getter function for product_colors
       field = 'product_colors';
@@ -29,11 +43,18 @@ const ProductTable = ({ products }) => {
       field += '.value';
     }
   
-    // Return the column definition
-    return { headerName: header, field, valueGetter: getCustomValueGetter(header), editable: true };
+    // Return the column definition with filter added
+    return { 
+      headerName: header, 
+      field, 
+      valueGetter: getCustomValueGetter(header), 
+      editable: true,
+      filter, // set filter type
+      filterParams, // set filter parameters
+    };
   });
   
-  // return comma separated list of multi option attributes
+  // return comma separated list of multi value attributes
   function getCustomValueGetter(header) {
     if (header === 'product_colors') {
       return function(params) {
@@ -45,30 +66,16 @@ const ProductTable = ({ products }) => {
   
   
   
-
   return (
-    <table className="ag-theme-alpine" style={{ height: 400, width: 800 }}>
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th key={header}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        <Filters />
-        <tr>
-          <td colSpan={headers.length}>
-            <AgGridReact
-              columnDefs={columnDefs}
-              rowData={products}
-              pagination={true}
-              paginationPageSize={10}
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div className='ag-theme-alpine'> 
+      <AgGridReact
+        columnDefs={columnDefs}
+        rowData={products}
+        pagination={true}
+        paginationPageSize={100}
+        domLayout='autoHeight'
+      />
+    </div>
   );
 };
 

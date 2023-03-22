@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductTable from '../components/ProductTable';
 import QueryButtons from '../components/QueryButtons';
 import getProducts from '../api/productsAPI';
+import Filters from '../components/Filters';
 
 import queryReset from '../queries/queryReset';
 import queryUpdate from '../queries/queryUpdate';
@@ -42,6 +43,7 @@ const Products = () => {
                             queryAIMExport={queryAIMExport}
                             queryBCExport={queryBCExport}
                         />
+                        <Filters />
                         <ProductTable products={products} />
                     </div>
             </main>

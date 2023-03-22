@@ -5,11 +5,8 @@ import {
     SET_DESCRIPTION_FILTER, 
     SET_MODEL_ID_FILTER,
     SET_SKU_FILTER,
-    SET_UPC_FILTER,
-    // SET_MSRP_FILTER,
-    SET_SIZE_FILTER,
-    SET_COLOR_FILTER,
-    SET_SPEED_FILTER
+    SET_BARCODE_FILTER,
+    SET_PART_NUM_FILTER,
 } from './types';
 
 const initialState = {
@@ -19,11 +16,8 @@ const initialState = {
     descriptionFilter: '',
     modelIdFilter: '',
     skuFilter: '',
-    upcFilter: '',
-    // msrpFilter: '',
-    sizeFilter: '',
-    colorFilter: '',
-    speedFilter: ''
+    barcodeFilter: '',
+    partnumFilter: '',
 };
 
 export default function filtersReducer(state = initialState, action) {
@@ -42,16 +36,10 @@ export default function filtersReducer(state = initialState, action) {
         return { ...state, modelIdFilter: action.payload };
     case SET_SKU_FILTER:
         return { ...state, skuFilter: action.payload };
-    case SET_UPC_FILTER:
-        return { ...state, upcFilter: action.payload };
-    // case SET_MSRP_FILTER:
-    //     return { ...state, msrpFilter: action.payload };
-    case SET_SIZE_FILTER:
-        return { ...state, sizeFilter: action.payload };
-    case SET_COLOR_FILTER:
-        return { ...state, colorFilter: action.payload };
-    case SET_SPEED_FILTER:
-        return { ...state, speedFilter: action.payload };
+    case SET_BARCODE_FILTER:
+        return { ...state, barcodeFilter: action.payload };
+    case SET_PART_NUM_FILTER:
+        return { ...state, partnumFilter: action.payload };
     default:
         return state;
   }
