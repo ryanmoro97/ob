@@ -10,7 +10,7 @@ const modeOptions = [
   { id: 3, value: 'Excel -> Vendor' }
 ];
 
-function QueryButtons({ triggerFetchData, queryUpdate, queryReset, queryFillModels, queryUpdateExport, queryBCExport, queryAIMExport}) {
+function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryReset, queryFillModels, queryUpdateExport, queryBCExport, queryAIMExport}) {
   const [selectedMode, setSelectedMode] = useState(1);
   const [vendorOptions, setVendorOptions] = useState([]);
 
@@ -53,6 +53,11 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryReset, queryFillMode
       label: 'Update',
       onClick: queryUpdate,
       show: selectedMode === 1 || selectedMode === 2,
+    },
+    {
+      label: 'Update Prices',
+      onClick: queryUpdatePrice,
+      show: selectedMode === 3 || selectedMode === 2,
     },
     {
       label: 'Insert',

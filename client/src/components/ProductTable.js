@@ -64,7 +64,9 @@ const ProductTable = ({ products }) => {
     }
   }
   
-  
+  const gridOptions = {
+    autoSizeColumns: true,
+  };
   
   return (
     <div className='ag-theme-alpine'> 
@@ -74,6 +76,7 @@ const ProductTable = ({ products }) => {
         pagination={true}
         paginationPageSize={100}
         domLayout='autoHeight'
+        gridOptions={gridOptions}
       />
     </div>
   );

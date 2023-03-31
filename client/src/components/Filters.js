@@ -59,25 +59,35 @@ function Filters() {
   
 
     return (
-        <tr>
-        {inputFields.map((field) => {
-            const InputComponent = field.component;
-            return (
-            <td key={field.name}>
-                <label htmlFor={field.name}>{field.label}</label>
-                {InputComponent ? (
-                <InputComponent
-                    name={field.name}
-                    // placeholder={[field.label]}
-                    // value={field.value}
-                    options={(inputFields.find(f => f.name === field.name)?.options || []).map(option => option.value)}
-                    onChange={(value) => handleInputChange(field.name, value, field.reducer)}
-                    />
-                ) : null}
-            </td>
-            );
-        })}
-        </tr>
+        <div style={{ 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'start',
+            color: 'black',
+          }}>
+            <table>
+                <tbody>
+                    <tr>
+                    {inputFields.map((field) => {
+                        const InputComponent = field.component;
+                        return (
+                            <td key={field.name}>
+                            {InputComponent ? (
+                                <InputComponent
+                                name={field.name}
+                                placeholder={[field.label]}
+                                // value={field.value}
+                                options={(inputFields.find(f => f.name === field.name)?.options || []).map(option => option.value)}
+                                onChange={(value) => handleInputChange(field.name, value, field.reducer)}
+                                />
+                                ) : null}
+                            </td>
+                        );
+                    })}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
 }
 

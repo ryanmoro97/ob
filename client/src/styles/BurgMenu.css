@@ -28,8 +28,8 @@
 }
 
 .bm-menu-wrap {
-    width: 180px !important;
-    height: 30%!important;
+    width: 240px !important;
+    height: 15%!important;
     margin: 5px;
     
 }
@@ -40,9 +40,10 @@
 
 .bm-item {
     color: rgb(189, 223, 186);
-    padding: 5px;
+    padding: 5px 5px;
     margin: 10px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .bm-item:hover {

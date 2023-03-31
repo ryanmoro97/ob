@@ -22,7 +22,7 @@ module.exports = [
   },
   {
     taxonomyId: 6,
-    value: 'Safety & Protection'
+    value: 'Safety'
   },
 ];
   

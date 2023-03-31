@@ -16,12 +16,23 @@
 .App-body th {
   border: 2px solid rgb(0, 0, 0);
   border-radius: 5px;
-  background-color: rgb(174, 117, 25);;
+  background-color: rgb(174, 117, 25);
   color: #0b1d2f;
   text-align: center;
 }
 
-.ag-theme-alpine {
+div.ag-theme-alpine {
+  padding: 20px 0px;
   height: 100%;
   width: 100%;
+  --ag-foreground-color: rgb(221, 220, 220);
+  --ag-background-color: #282c34;;
+  --ag-header-foreground-color: rgb(0, 0, 0);
+  --ag-header-background-color: rgb(189, 223, 186);
+  --ag-odd-row-background-color: #333841;;
+  --ag-border-color: rgb(208, 128, 0);
+  --ag-row-border-color: rgb(208, 128, 0);
+  --ag-secondary-foreground-color: rgb(208, 128, 0);
+
+  --ag-font-size: 17px;
 }

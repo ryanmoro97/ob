@@ -1,7 +1,7 @@
 import '../styles/Filters.css';
 import { useRef } from 'react';
 
-function InputText( {onChange} ) {
+function InputText( { onChange, placeholder } ) {
     const inputRef = useRef(null);
 
     function handleKeyDown(event) {
@@ -33,6 +33,7 @@ function InputText( {onChange} ) {
                 className='text-filter'
                 onKeyDown={handleKeyDown}
                 ref={inputRef}
+                placeholder={placeholder}
                 onFocus={handleInputFocus}
                 onChange={handleInputChange}
             />;

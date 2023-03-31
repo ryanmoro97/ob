@@ -10,6 +10,7 @@ import queryFillModels from '../queries/queryFillModels';
 import queryUpdateExport from '../queries/queryUpdateExport';
 import queryAIMExport from '../queries/queryAIMExport';
 import queryBCExport from '../queries/queryBCExport';
+import queryUpdatePrice from '../queries/queryUpdatePrice';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -30,7 +31,7 @@ const Products = () => {
     return (
         <div className='container'>
             <main className='App-body'>
-                    <div>
+                    <div style={{ position: 'relative', zIndex: '1' }}>
                         <QueryButtons
                             triggerFetchData={() => setFetchDataFlag(true)}
                             queryReset={() => {
@@ -38,14 +39,15 @@ const Products = () => {
                                 setFetchDataFlag(true);
                             }}
                             queryUpdate={queryUpdate}
+                            queryUpdatePrice={queryUpdatePrice}
                             queryFillModels={queryFillModels}
                             queryUpdateExport={queryUpdateExport}
                             queryAIMExport={queryAIMExport}
                             queryBCExport={queryBCExport}
                         />
                         <Filters />
-                        <ProductTable products={products} />
                     </div>
+                    <ProductTable products={products} />
             </main>
         </div>
     );
