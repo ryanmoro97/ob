@@ -16,55 +16,58 @@ const inputFieldsInitial = [
     { name: 'partnum', label: 'Part Number', component: InputText, reducer: 'SET_PART_NUM_FILTER' },
 ];
 
-function Filters() {
-    const [taxonomyBrand, setTaxonomyBrand] = useState([]);
-    const [taxonomyCat, setTaxonomyCat] = useState([]);
-    const [taxonomySubCat, setTaxonomySubCat] = useState([]);
+function Filters({ resetValues, onResetDone }) {
+    const [taxonomyOptions, setTaxonomyOptions] = useState({
+        brand: [],
+        cat: [],
+        subCat: [],
+    });
     const [inputFields, setInputFields] = useState(inputFieldsInitial);
-    // const [inputValues, setInputValues] = useState({});
+    
 
     useEffect(() => {
         async function fetchTaxonomyData() {
             const brandOptions = await getTaxonomyValues('taxonomy_brand');
-            setTaxonomyBrand(brandOptions);
             const catOptions = await getTaxonomyValues('taxonomy_cat');
-            setTaxonomyCat(catOptions);
             const subCatOptions = await getTaxonomyValues('taxonomy_sub_cat');
-            setTaxonomySubCat(subCatOptions);
+            setTaxonomyOptions({
+                brand: brandOptions,
+                cat: catOptions,
+                subCat: subCatOptions,
+            });
         }
         fetchTaxonomyData();
     }, []);
       
     useEffect(() => {
         setInputFields(fields => {
-        const updatedFields = fields.map(field => {
-            switch (field.name) {
-            case 'brand':
-                return { ...field, options: taxonomyBrand };
-            case 'sub_category':
-                return { ...field, options: taxonomySubCat };
-            case 'category':
-                return { ...field, options: taxonomyCat };
-            default:
-                return field;
-            }
+            const updatedFields = fields.map(field => {
+                switch (field.name) {
+                    case 'brand':
+                        return { ...field, options: taxonomyOptions.brand };
+                    case 'sub_category':
+                        return { ...field, options: taxonomyOptions.subCat };
+                    case 'category':
+                        return { ...field, options: taxonomyOptions.cat };
+                    default:
+                        return field;
+                }
+            });
+            return updatedFields;
         });
-        return updatedFields;
-        });
-    }, [taxonomyBrand, taxonomyCat, taxonomySubCat]);
+    }, [taxonomyOptions]);
 
     function handleInputChange(name, value, reducer) {
         filtersStore.dispatch({ type: reducer, payload: { value } });
     }
-  
+
+
+    function resetDone() {
+        onResetDone();
+    }
 
     return (
-        <div style={{ 
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'start',
-            color: 'black',
-          }}>
+        <div>
             <table>
                 <tbody>
                     <tr>
@@ -76,8 +79,9 @@ function Filters() {
                                 <InputComponent
                                 name={field.name}
                                 placeholder={[field.label]}
-                                // value={field.value}
                                 options={(inputFields.find(f => f.name === field.name)?.options || []).map(option => option.value)}
+                                resetValues={resetValues}
+                                resetDone={resetDone}
                                 onChange={(value) => handleInputChange(field.name, value, field.reducer)}
                                 />
                                 ) : null}

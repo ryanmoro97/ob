@@ -1,12 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../styles/Filters.css';
 
-
-function InputDropDown({ options, placeholder, onChange }) {
+function InputDropDown({ options, placeholder, onChange, resetValues, resetDone }) {
   const [inputValue, setInputValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const inputRef = useRef(null);
+  // const [value, setValue] = useState('');
+
+
+  const resetDoneCallback = useCallback(() => {
+    resetDone();
+  }, [resetDone]);
+
+  useEffect(() => {
+      if (resetValues) {
+        setInputValue('')
+        resetDoneCallback();
+      }
+  }, [resetValues, resetDoneCallback]);
 
   useEffect(() => {
     if (inputValue === '') {
@@ -79,6 +91,7 @@ function InputDropDown({ options, placeholder, onChange }) {
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
+        // value={value}
         placeholder={placeholder}
         ref={inputRef}
     />

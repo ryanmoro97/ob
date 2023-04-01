@@ -15,6 +15,7 @@ import queryUpdatePrice from '../queries/queryUpdatePrice';
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [fetchDataFlag, setFetchDataFlag] = useState(false);
+    const [resetValues, setResetValues] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,6 +28,13 @@ const Products = () => {
         }
     }, [fetchDataFlag]);
 
+    function handleReset() {
+        setResetValues(true);
+    }
+    function onResetDone() {
+        setResetValues(false);
+    }
+
 
     return (
         <div className='container'>
@@ -37,6 +45,8 @@ const Products = () => {
                             queryReset={() => {
                                 queryReset();
                                 setFetchDataFlag(true);
+                                handleReset();
+                                // call handleReset in Filters
                             }}
                             queryUpdate={queryUpdate}
                             queryUpdatePrice={queryUpdatePrice}
@@ -45,7 +55,7 @@ const Products = () => {
                             queryAIMExport={queryAIMExport}
                             queryBCExport={queryBCExport}
                         />
-                        <Filters />
+                        <Filters resetValues={resetValues} onResetDone={onResetDone}/>
                     </div>
                     <ProductTable products={products} />
             </main>
