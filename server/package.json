@@ -4,9 +4,11 @@
     "create-db": "node database/create-db.js"
   },
   "dependencies": {
+    "apollo-server-express": "^3.12.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "graphql-import": "^1.0.2",
     "pg": "^8.9.0",
     "sequelize": "^6.29.2"
   }

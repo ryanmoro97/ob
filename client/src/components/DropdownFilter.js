@@ -60,7 +60,7 @@ function InputDropDown({ options, placeholder, onChange, resetValues, resetDone 
   }
 
   function handleKeyDown(event) {
-    if (event.key === 'Enter' || event.key === 'Tab') {
+    if (event.key === 'Enter') {  // || event.key === 'Tab' - fills in with tab.. but breaks reverse tab
       if (filteredOptions.length > 0) {
         if(inputValue !== ''){
           setInputValue(filteredOptions[0]);
