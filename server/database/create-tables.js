@@ -20,7 +20,7 @@ const ProductMSRP = CreateAttributeTable('product_MSRP', DataTypes.DECIMAL(10, 2
 
 // EXTRA ATTRIBUTES
 const ProductSize = CreateAttributeTable('product_size', DataTypes.TEXT);
-const ProductColor = CreateAttributeTable('product_color', DataTypes.TEXT);
+const ProductColor = CreateAttributeTable('product_color', DataTypes.ARRAY(DataTypes.TEXT),);
 const ProductSpeed = CreateAttributeTable('product_speed', DataTypes.TEXT);
 
 // taxonomy relationships
@@ -47,7 +47,7 @@ Product.hasOne(ProductMSRP);
 ProductMSRP.belongsTo(Product);
 Product.hasOne(ProductSize); // many?
 ProductSize.belongsTo(Product);
-Product.hasMany(ProductColor);
+Product.hasOne(ProductColor);
 ProductColor.belongsTo(Product);
 Product.hasOne(ProductSpeed); // many?
 ProductSpeed.belongsTo(Product);

@@ -1,6 +1,6 @@
 type Query {
   getTaxonomyValues(taxonomyClass: String!): [Taxonomy!]!
-  getProductValues: [Product!]!
+  getProductsValues(filters: FiltersInput!): [Product]
 }
 
 type Taxonomy {
@@ -8,9 +8,52 @@ type Taxonomy {
   value: String!
 }
 
-type Product {
-  productId: Int!
-  name: String!
-  description: String!
-  price: Float!
+input FiltersInput {
+  brandFilter: String
+  categoryFilter: String
+  subCategoryFilter: String
+  descriptionFilter: String
+  modelIdFilter: String
+  skuFilter: String
+  upcFilter: String
+  sizeFilter: String
 }
+
+# product_obsession table
+type Product {
+  id: Int!
+  description: String
+  model_id: String
+  sku: String
+
+  brand: String
+  category: String
+  subCategory: String
+  
+  upc: String
+  msrp: String
+  size: String
+  color: [String]
+  speed: String
+}
+
+# vendor product table
+type VendorProduct {
+  id: Int!
+  description: String
+  
+  model_id: String
+  sku: String
+
+  brand: String
+  category: String
+  subCategory: String
+  
+  upc: String
+  msrp: String
+  size: String
+  color: [String]
+  speed: String
+}
+
+

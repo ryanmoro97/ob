@@ -1,10 +1,10 @@
 module.exports = [
     {
       productId: 1,
-      value: 'Black'
+      value: ['Black', 'Blue']
     },
     {
       productId: 3,
-      value: 'Radioactive Orange'
+      value: ['Radioactive Orange']
     }
   ];

@@ -39,17 +39,11 @@ const getProductsValues = async (req, res) => {
     if (filters.skuFilter) {
       whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter.value}%` }};
     }
-    if (filters.upcFilter) {
+    if (filters.barcodeFilter) {
       whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter.value}%` }};
     }
-    if (filters.sizeFilter) {
+    if (filters.partNumFilter) {
       whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter.value}%` }};
-    }
-    if (filters.colorFilter) {
-      whereClause = { ...whereClause, '$product_colors.value$': { [Op.iLike]: `%${filters.colorFilter.value}%` }};
-    }
-    if (filters.speedFilter) {
-      whereClause = { ...whereClause, '$product_speed.value$': { [Op.iLike]: `%${filters.speedFilter.value}%` }};
     }
   
     try {
@@ -62,7 +56,7 @@ const getProductsValues = async (req, res) => {
             { model: ProductMSRP, attributes: ['value'] },
             { model: ProductSize, attributes: ['value'] }, 
             { model: ProductColor, attributes: ['value'] }, 
-            { model: ProductSpeed, attributes: ['value'] }, 
+            { model: ProductSpeed, attributes: ['value'] },
             ],
             where: whereClause,
         });

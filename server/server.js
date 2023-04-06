@@ -38,9 +38,4 @@ process.on('SIGINT', () => {
 });
 
 
-// app.get('/api/products', getProductsValues);
-
-// app.get('/api/taxonomy_cat', getTaxonomyValues(TaxonomyCategory));
-// app.get('/api/taxonomy_brand', getTaxonomyValues(TaxonomyBrand));
-// app.get('/api/taxonomy_sub_cat', getTaxonomyValues(TaxonomySubCategory));
-// app.get('/api/taxonomy_vendor', getTaxonomyValues(TaxonomyVendor));
+app.get('/api/products', getProductsValues);
