@@ -24,6 +24,8 @@ const GET_PRODUCT_VALUES = gql`
 const getProductsValues = async () => {
   try {
     const filtersStateEntries = filtersStore.getState().filters;
+    console.log('filtersStateEntries', filtersStateEntries);
+
     const nonEmptyFilters = Object.fromEntries(
       Object.entries(filtersStateEntries).filter(([key, value]) => {
         if (typeof value === 'string') {
@@ -32,17 +34,17 @@ const getProductsValues = async () => {
           return value.value !== '';
         }
         return true; 
-      })
+      }).map(([key, value]) => [key, typeof value === 'object' ? value.value : value])
     );
-
     const { data } = await client.query({
       query: GET_PRODUCT_VALUES,
       variables: { filters: nonEmptyFilters },
     });
     return data.getProductsValues;
   } catch (error) {
-    console.log(error);
+    console.error('getProductsValues', error);
   }
-}
+};
+
 
 export default getProductsValues;

@@ -9,8 +9,8 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const ProductTable = ({ products }) => {
   const gridRef = useRef();
-  const headers = products.length > 0 ? Object.keys(products[0]) : [];
   console.log("products: ", products);
+  const headers = products.length > 0 ? Object.keys(products[0]) : [];
   console.log("headers: ", headers);
 
   const columnDefs = headers.map((header) => {
@@ -21,24 +21,14 @@ const ProductTable = ({ products }) => {
     let field = header;
     let filter = 'agTextColumnFilter'; // default to text filter
     switch (header) {
-      case 'product_brand':
-        field = 'product_brand.taxonomy_brand.value';
-        filter = 'agSetColumnFilter';
+      case 'color':
+        // Use a custom value getter function for array types
+        field = 'color';
         break;
-      case 'product_category':
-        field = 'product_category.taxonomy_category.value';
-        filter = 'agSetColumnFilter';
-        break;
-      case 'product_sub_category':
-        field = 'product_sub_category.taxonomy_sub_category.value';
-        filter = 'agSetColumnFilter';
-        break;
-      case 'product_colors':
-        // Use a custom value getter function for product_colors
-        field = 'product_colors';
-        break;
-      case 'product_MSRP': // or product_cost
-        field = 'product_MSRP.value';
+      case 'msrp': // or product_cost
+        if (headerHasValueProp) {
+          field += '.value';
+        }
         filter = 'agNumberColumnFilter';
         break;
       default:
@@ -62,17 +52,17 @@ const ProductTable = ({ products }) => {
   
   // return comma separated list of multi value attributes
   function getCustomValueGetter(header) {
-    if (header === 'product_colors') {
+    if (header === 'color') {
       return function(params) {
-        const colors = params.data.product_colors || [];
-        return colors.map((color) => color.value).join(', ');
+        const colors = params.data.color || [];
+        return colors.join(', ');
       }
     }
   }
   
   const gridOptions = {
     rowSelection: 'multiple',
-    skipHeaderOnAutoSize: true,
+    skipHeaderOnAutoSize: false,
     
   };
 

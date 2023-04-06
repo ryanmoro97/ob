@@ -7,7 +7,8 @@ import getTaxonomyValues from '../api/taxonomyAPI';
 const modeOptions = [
   { id: 1, value: 'Product Table' },
   { id: 2, value: 'Vendor -> Obsession' },
-  { id: 3, value: 'Excel -> Vendor' }
+  { id: 3, value: 'Excel -> Vendor' },
+  { id: 4, value: 'SaqPK + Part# Import' },
 ];
 
 function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryReset, queryFillModels, queryUpdateExport, queryBCExport, queryAIMExport}) {
@@ -42,27 +43,27 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
     {
       label: 'Search',
       onClick: triggerFetchData,
-      show: true,
+      show: [1, 2, 3].includes(selectedMode),
     },
     {
       label: 'Reset',
       onClick:  queryReset,
-      show: true,
+      show: [1, 2, 3].includes(selectedMode),
     },
     {
       label: 'Update',
       onClick: queryUpdate,
-      show: selectedMode === 1 || selectedMode === 2,
+      show: [1, 2].includes(selectedMode),
     },
     {
       label: 'Update Prices',
       onClick: queryUpdatePrice,
-      show: selectedMode === 3 || selectedMode === 2,
+      show: [2, 3].includes(selectedMode),
     },
     {
       label: 'Insert',
       onClick: queryReset,
-      show: selectedMode === 2 || selectedMode === 3,
+      show: [2, 3].includes(selectedMode),
     },
     {
       label: 'Fill Models',
@@ -84,6 +85,11 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
       onClick: queryAIMExport,
       show: selectedMode === 1,
     },
+    {
+      label: 'Import',
+      onClick: queryAIMExport,
+      show: [4, 3].includes(selectedMode),
+    },
   ];
 
 
@@ -94,7 +100,7 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
         {selectedMode === 2 ? (
           <DropDownMenu options={vendorOptions} onChange={handleVendorChange} />
         ) : null}
-        {selectedMode === 3 ? (
+        {[3, 4].includes(selectedMode) ? (
           <input className='file-input' type="file" onChange={handleFileInputChange} />
         ) : null}
       </div>
