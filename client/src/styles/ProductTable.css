@@ -11,7 +11,6 @@
   text-align: left;
   white-space: nowrap;
   border-radius: 1px;
-  
 }
 
 .App-body th {
@@ -36,5 +35,5 @@ div.ag-theme-alpine {
   --ag-secondary-foreground-color: rgb(208, 128, 0);
   --ag-control-panel-background-color: #282c34;
   --ag-disabled-foreground-color: rgb(208, 128, 0);
-  --ag-font-size: 17px;
+  --ag-font-size: 12px;
 }

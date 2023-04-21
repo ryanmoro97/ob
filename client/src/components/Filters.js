@@ -1,32 +1,51 @@
 // import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import InputDropDown from './DropdownFilter';
 import InputText from './TextFilter';
 import filtersStore from '../redux'
 import getTaxonomyValues from '../api/taxonomyAPI';
 
-const inputFieldsInitial = [
-    { name: 'brand', label: 'Brand', options: [], component: InputDropDown, reducer: 'SET_BRAND_FILTER' },
-    { name: 'category', label: 'Category', options: [], component: InputDropDown, reducer: 'SET_CATEGORY_FILTER' },
-    { name: 'sub_category', label: 'Sub Category', options: [], component: InputDropDown, reducer: 'SET_SUB_CATEGORY_FILTER' },
-    { name: 'description', label: 'Description', component: InputText, reducer: 'SET_DESCRIPTION_FILTER' },
-    { name: 'model_id', label: 'Model ID', component: InputText, reducer: 'SET_MODEL_ID_FILTER' },
-    { name: 'sku', label: 'Sku', component: InputText, reducer: 'SET_SKU_FILTER' },
-    { name: 'barcode', label: 'Barcode', component: InputText, reducer: 'SET_BARCODE_FILTER' },
-    { name: 'partnum', label: 'Part Number', component: InputText, reducer: 'SET_PART_NUM_FILTER' },
-];
+function getInputFieldsInitial(mode) {
+    const baseFields = [
+      // Common fields for both modes
+      { name: 'brand', label: 'Brand', options: [], component: InputDropDown, reducer: 'SET_BRAND_FILTER' },
+      { name: 'description', label: 'Description', component: InputText, reducer: 'SET_DESCRIPTION_FILTER' },
+      { name: 'model_id', label: 'Model ID', component: InputText, reducer: 'SET_MODEL_ID_FILTER' },
+      { name: 'sku', label: 'Sku', component: InputText, reducer: 'SET_SKU_FILTER' },
+      { name: 'barcode', label: 'Barcode', component: InputText, reducer: 'SET_BARCODE_FILTER' },
+      { name: 'partnum', label: 'Part Number', component: InputText, reducer: 'SET_PART_NUM_FILTER' },
+    ];
+  
+    if (mode === 1) {
+      return [
+          { name: 'category', label: 'Category', options: [], component: InputDropDown, reducer: 'SET_CATEGORY_FILTER' },
+          { name: 'sub_category', label: 'Sub Category', options: [], component: InputDropDown, reducer: 'SET_SUB_CATEGORY_FILTER' },
+          ...baseFields,
+      ];
+    } else if (mode === 2) {
+      return [
+        ...baseFields,
+        { name: 'model_year', label: 'Model Year', component: InputText, reducer: 'SET_MODEL_YEAR_FILTER' },
+      ];
+    }
+    return baseFields;
+}
+  
 
 function Filters({ resetValues, onResetDone }) {
+    const selectedMode = useSelector((state) => state.mode.mode);
+    const [inputFields, setInputFields] = useState(getInputFieldsInitial(selectedMode));
+
     const [taxonomyOptions, setTaxonomyOptions] = useState({
         brand: [],
         cat: [],
         subCat: [],
     });
-    const [inputFields, setInputFields] = useState(inputFieldsInitial);
     
-
+    
     useEffect(() => {
-        async function fetchTaxonomyData() {
+        async function getTaxonomyData() {
             const brandOptions = await getTaxonomyValues('taxonomy_brand');
             const catOptions = await getTaxonomyValues('taxonomy_cat');
             const subCatOptions = await getTaxonomyValues('taxonomy_sub_cat');
@@ -36,9 +55,12 @@ function Filters({ resetValues, onResetDone }) {
                 subCat: subCatOptions,
             });
         }
-        fetchTaxonomyData();
-    }, []);
-      
+        getTaxonomyData();
+
+        // Update the inputFields when the selected mode changes
+        setInputFields(getInputFieldsInitial(selectedMode));
+    }, [selectedMode]);
+    
     useEffect(() => {
         setInputFields(fields => {
             const updatedFields = fields.map(field => {
@@ -60,7 +82,6 @@ function Filters({ resetValues, onResetDone }) {
     function handleInputChange(name, value, reducer) {
         filtersStore.dispatch({ type: reducer, payload: { value } });
     }
-
 
     function resetDone() {
         onResetDone();

@@ -117,11 +117,8 @@ const resolvers = {
           const whereClause = constructWhereClause(filters);
           try {
             const modelNames = Object.keys(db.models);
-            console.log(modelNames); // output the list of model names
-
             const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomyId: table }});
-            const products = await db.model("product_trek").findAll({where: whereClause});
-            console.log(products[1].color);
+            const products = await db.model(vendorTable.value).findAll({where: whereClause});
             return products;
           }
           catch (error) {

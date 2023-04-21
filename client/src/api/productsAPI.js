@@ -1,7 +1,4 @@
-// import store from '../redux'
-import filtersStore from '../redux'
-import tableStore from '../redux'
-// import { filtersStore, tableStore } from '../redux';
+import store from '../redux'
 
 import client from '../index.js';
 import { gql } from '@apollo/client';
@@ -41,8 +38,8 @@ const GET_VENDOR_PRODUCT_VALUES = gql`
 
 const getProductsValues = async () => {
   try {
-    const table = tableStore.getState().table.table;
-    const filtersStateEntries = filtersStore.getState().filters;
+    const table = store.getState().table.table;
+    const filtersStateEntries = store.getState().filters;
     const nonEmptyFilters = Object.fromEntries(
       Object.entries(filtersStateEntries).filter(([key, value]) => {
         if (typeof value === 'string') {

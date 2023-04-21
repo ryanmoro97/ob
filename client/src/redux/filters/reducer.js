@@ -8,17 +8,19 @@ import {
     SET_SKU_FILTER,
     SET_BARCODE_FILTER,
     SET_PART_NUM_FILTER,
+    SET_MODEL_YEAR_FILTER,
 } from './types';
 
 const initialState = {
-    brandFilter: '',
     categoryFilter: '',
     subCategoryFilter: '',
+    brandFilter: '',
     descriptionFilter: '',
     modelIdFilter: '',
     skuFilter: '',
     barcodeFilter: '',
     partnumFilter: '',
+    modelYearFilter: '',
 };
 
 export default function filtersReducer(state = initialState, action) {
@@ -41,6 +43,8 @@ export default function filtersReducer(state = initialState, action) {
         return { ...state, barcodeFilter: action.payload };
     case SET_PART_NUM_FILTER:
         return { ...state, partnumFilter: action.payload };
+    case SET_MODEL_YEAR_FILTER:
+        return { ...state, modelYearFilter: action.payload };
     default:
         return state;
   }

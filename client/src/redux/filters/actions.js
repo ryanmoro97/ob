@@ -8,6 +8,7 @@ import {
     SET_SKU_FILTER,
     SET_BARCODE_FILTER,
     SET_PART_NUM_FILTER,
+    SET_MODEL_YEAR_FILTER,
 } from './types';
 
 export function resetFilters() {
@@ -44,4 +45,8 @@ export function setBarcodeFilter(barcodeFilter) {
 
 export function setPartNumFilter(partNumFilter) {
     return { type: SET_PART_NUM_FILTER, payload: partNumFilter };
+}
+
+export function setModelYearFilter(modelYearFilter) {
+    return { type: SET_MODEL_YEAR_FILTER, payload: modelYearFilter };
 }

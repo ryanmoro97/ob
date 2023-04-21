@@ -11,6 +11,7 @@ import queryUpdateExport from '../queries/queryUpdateExport';
 import queryAIMExport from '../queries/queryAIMExport';
 import queryBCExport from '../queries/queryBCExport';
 import queryUpdatePrice from '../queries/queryUpdatePrice';
+import queryInsert from '../queries/queryInsert';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -46,7 +47,6 @@ const Products = () => {
                                 queryReset();
                                 setFetchDataFlag(true);
                                 handleReset();
-                                // call handleReset in Filters
                             }}
                             queryUpdate={queryUpdate}
                             queryUpdatePrice={queryUpdatePrice}
@@ -54,6 +54,7 @@ const Products = () => {
                             queryUpdateExport={queryUpdateExport}
                             queryAIMExport={queryAIMExport}
                             queryBCExport={queryBCExport}
+                            queryInsert={queryInsert}
                         />
                         <Filters resetValues={resetValues} onResetDone={onResetDone}/>
                     </div>

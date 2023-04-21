@@ -29,3 +29,8 @@ export function getBarcodeFilter(state) {
 export function getPartNumFilter(state) {
     return state.filters.partNumFilter;
 }
+
+export function getModelYearFilter(state) {
+    return state.filters.modelYearFilter;
+}
+
