@@ -1,12 +1,13 @@
 const db = require('./db');
 const { DataTypes } = require('sequelize');
-const {CreateTaxonomyTable, CreateProductTable, CreateAttributeTable } = require('./models')
+const {CreateTaxonomyTable, CreateProductTable, CreateAttributeTable, CreateVendorProductTable } = require('./models')
 
 // TAXONOMY
 const TaxonomyBrand = CreateTaxonomyTable('taxonomy_brand');
 const TaxonomyCategory = CreateTaxonomyTable('taxonomy_category');
 const TaxonomySubCategory = CreateTaxonomyTable('taxonomy_sub_category');
 const TaxonomyVendor = CreateTaxonomyTable('taxonomy_vendor');
+const TaxonomyVendorTable = CreateTaxonomyTable('taxonomy_vendor_table');
 
 // MAIN PRODUCT TABLE
 const Product = CreateProductTable();
@@ -22,6 +23,9 @@ const ProductMSRP = CreateAttributeTable('product_MSRP', DataTypes.DECIMAL(10, 2
 const ProductSize = CreateAttributeTable('product_size', DataTypes.TEXT);
 const ProductColor = CreateAttributeTable('product_color', DataTypes.ARRAY(DataTypes.TEXT),);
 const ProductSpeed = CreateAttributeTable('product_speed', DataTypes.TEXT);
+
+// VENDOR PRODUCT TABLES
+const ProductTrek = CreateVendorProductTable('product_trek');
 
 // taxonomy relationships
 ProductBrand.belongsTo(TaxonomyBrand, { foreignKey: 'value', targetKey: 'taxonomyId' });
@@ -45,11 +49,11 @@ Product.hasOne(ProductUPC);
 ProductUPC.belongsTo(Product);
 Product.hasOne(ProductMSRP);
 ProductMSRP.belongsTo(Product);
-Product.hasOne(ProductSize); // many?
+Product.hasOne(ProductSize); 
 ProductSize.belongsTo(Product);
 Product.hasOne(ProductColor);
 ProductColor.belongsTo(Product);
-Product.hasOne(ProductSpeed); // many?
+Product.hasOne(ProductSpeed); 
 ProductSpeed.belongsTo(Product);
   
 const createTables = async () => {
@@ -59,6 +63,7 @@ const createTables = async () => {
         await TaxonomyCategory.sync();
         await TaxonomySubCategory.sync();
         await TaxonomyVendor.sync();
+        await TaxonomyVendorTable.sync();
         await Product.sync();
         await ProductUPC.sync();
         await ProductBrand.sync();
@@ -68,6 +73,7 @@ const createTables = async () => {
         await ProductSize.sync();
         await ProductColor.sync();
         await ProductSpeed.sync();
+        await ProductTrek.sync();
         await db.sync();
     } catch (error) {
         console.error('Unable to create tables:', error);
@@ -81,6 +87,7 @@ module.exports = {
     TaxonomyCategory,
     TaxonomySubCategory,
     TaxonomyVendor,
+    TaxonomyVendorTable,
     Product,
     ProductUPC,
     ProductBrand,
@@ -89,7 +96,8 @@ module.exports = {
     ProductMSRP,
     ProductSize,
     ProductColor,
-    ProductSpeed
+    ProductSpeed,
+    ProductTrek
 };
   
 

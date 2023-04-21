@@ -1,4 +1,4 @@
-GET http://localhost:6969/api/products
+# GET http://localhost:6969/api/products
 
 # GET http://localhost:6969/api/taxonomy_vendor
 

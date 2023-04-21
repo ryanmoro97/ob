@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/QueryButtons.css';
+import tableStore from '../redux'
 
 import DropDownMenu from '../components/DropDownMenu'
 import getTaxonomyValues from '../api/taxonomyAPI';
@@ -20,8 +21,7 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
   };
 
   const handleVendorChange = (selected) => {
-    // TODO
-    // update table to display selected vendor product table
+    tableStore.dispatch({ type: 'SET_TABLE', payload: selected.taxonomyId });
   }
 
   const handleFileInputChange = (event) => {

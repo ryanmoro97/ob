@@ -1,6 +1,6 @@
 const { createTables } = require('./create-tables');
 const deleteTables = require('./delete-tables');
-const { insertTaxonomyData, insertProductsData, insertAttributesData } = require('./insert-values');
+const { insertTaxonomyData, insertProductsData, insertAttributesData, insertProductTrekData } = require('./insert-values');
 const db = require('./db');
 
 const setupDatabase = async () => {
@@ -14,6 +14,7 @@ const setupDatabase = async () => {
     await insertTaxonomyData();
     await insertProductsData();
     await insertAttributesData();
+    await insertProductTrekData();
 };
 
 setupDatabase();

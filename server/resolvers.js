@@ -1,11 +1,12 @@
-const getTaxonomyValues = require('./routes/taxonomyValues');
-// const { TaxonomyBrand, TaxonomyCategory, TaxonomySubCategory, TaxonomyVendor } = require('./database/create-tables');
+// const getTaxonomyValues = require('./routes/taxonomyValues');
 const { Op } = require('sequelize');
+const db = require('./database/db');
 const { 
     TaxonomyBrand, 
     TaxonomyCategory, 
     TaxonomySubCategory,
     TaxonomyVendor,
+    TaxonomyVendorTable,
     Product, 
     ProductBrand, 
     ProductCategory, 
@@ -24,6 +25,36 @@ const TAXONOMY_MODELS = {
   taxonomy_vendor: TaxonomyVendor,
 };
 
+const constructWhereClause = (filters) => {
+  let whereClause = {};
+  if (filters.brandFilter) {
+    whereClause = { ...whereClause, '$product_brand->taxonomy_brand.value$': filters.brandFilter };
+  }
+  if (filters.categoryFilter) {
+    whereClause = { ...whereClause, '$product_category->taxonomy_category.value$': filters.categoryFilter };
+  }
+  if (filters.subCategoryFilter) {
+    whereClause = { ...whereClause, '$product_sub_category->taxonomy_sub_category.value$': filters.subCategoryFilter };
+  }
+  if (filters.descriptionFilter) {
+    whereClause = { ...whereClause, description: { [Op.iLike]: `%${filters.descriptionFilter}%` }};
+  }
+  if (filters.modelIdFilter) { // matches beginning onwards
+    whereClause = { ...whereClause, model_id: { [Op.iLike]: `${filters.modelIdFilter}%` }};
+  } 
+  if (filters.skuFilter) {
+    whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter}%` }};
+  }
+  if (filters.upcFilter) {
+    whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter}%` }};
+  }
+  if (filters.sizeFilter) {
+    whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter}%` }};
+  }
+  return whereClause;
+}
+
+
 const resolvers = {
     Query: {
         getTaxonomyValues: async (_, { taxonomyClass }) => {
@@ -37,32 +68,9 @@ const resolvers = {
             });
             return taxonomyValues
         },
+
         getProductsValues: async (_, { filters }) => {
-            let whereClause = {};
-            if (filters.brandFilter) {
-              whereClause = { ...whereClause, '$product_brand->taxonomy_brand.value$': filters.brandFilter };
-            }
-            if (filters.categoryFilter) {
-              whereClause = { ...whereClause, '$product_category->taxonomy_category.value$': filters.categoryFilter };
-            }
-            if (filters.subCategoryFilter) {
-              whereClause = { ...whereClause, '$product_sub_category->taxonomy_sub_category.value$': filters.subCategoryFilter };
-            }
-            if (filters.descriptionFilter) {
-              whereClause = { ...whereClause, description: { [Op.iLike]: `%${filters.descriptionFilter}%` }};
-            }
-            if (filters.modelIdFilter) { // matches beginning onwards
-              whereClause = { ...whereClause, model_id: { [Op.iLike]: `${filters.modelIdFilter}%` }};
-            } 
-            if (filters.skuFilter) {
-              whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter}%` }};
-            }
-            if (filters.upcFilter) {
-              whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter}%` }};
-            }
-            if (filters.sizeFilter) {
-              whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter}%` }};
-            }
+            const whereClause = constructWhereClause(filters);
             try {
                 const products = await Product.findAll({
                     include: [
@@ -103,6 +111,25 @@ const resolvers = {
               throw error;
             }
         },
+
+        getVendorProductsValues: async (_, { table, filters }) => {
+          
+          const whereClause = constructWhereClause(filters);
+          try {
+            const modelNames = Object.keys(db.models);
+            console.log(modelNames); // output the list of model names
+
+            const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomyId: table }});
+            const products = await db.model("product_trek").findAll({where: whereClause});
+            console.log(products[1].color);
+            return products;
+          }
+          catch (error) {
+            console.error(error);
+            throw error;
+          }
+        },
+
     },
 }
 

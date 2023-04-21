@@ -1,9 +1,10 @@
 import { combineReducers, createStore } from 'redux';
 import { filtersReducer } from './filters';
+import { tableReducer } from './table';
 
 const rootReducer = combineReducers({
   filters: filtersReducer,
-//   other: otherReducer
+  table: tableReducer,
 });
 
 const store = createStore(rootReducer);

@@ -7,6 +7,7 @@ const product_cat_Data = require('./product_cat_Data');
 const product_color_Data = require('./product_color_Data');
 const product_size_Data = require('./product_size_Data');
 const product_speed_Data = require('./product_speed_Data');
+const product_trek_Data = require('./product_trek_Data');
 
 module.exports = {
     products_Data,
@@ -17,5 +18,7 @@ module.exports = {
     product_MSRP_Data,
     product_color_Data,
     product_speed_Data,
-    product_size_Data
+    product_size_Data,
+
+    product_trek_Data
 };

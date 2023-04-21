@@ -1,6 +1,7 @@
 type Query {
   getTaxonomyValues(taxonomyClass: String!): [Taxonomy!]!
   getProductsValues(filters: FiltersInput!): [Product]
+  getVendorProductsValues(table: Int!, filters: FiltersInput!): [VendorProduct]
 }
 
 type Taxonomy {
@@ -41,13 +42,8 @@ type Product {
 type VendorProduct {
   id: Int!
   description: String
-  
-  model_id: String
-  sku: String
 
   brand: String
-  category: String
-  subCategory: String
   
   upc: String
   msrp: String

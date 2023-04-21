@@ -9,9 +9,9 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const ProductTable = ({ products }) => {
   const gridRef = useRef();
-  console.log("products: ", products);
   const headers = products.length > 0 ? Object.keys(products[0]) : [];
-  console.log("headers: ", headers);
+  // console.log("products: ", products);
+  // console.log("headers: ", headers);
 
   const columnDefs = headers.map((header) => {
     // Check if header is associated with an object that has a .value property

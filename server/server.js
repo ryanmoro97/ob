@@ -9,8 +9,8 @@ const typeDefs = importSchema('./schema.graphql');
 const resolvers = require("./resolvers");
 
 const { TaxonomyBrand, TaxonomyCategory, TaxonomySubCategory, TaxonomyVendor } = require('./database/create-tables');
-const getTaxonomyValues = require('./routes/taxonomyValues');
-const getProductsValues = require('./routes/productValues');
+// const getTaxonomyValues = require('./routes/taxonomyValues');
+// const getProductsValues = require('./routes/productValues');
 
 app.use(cors());
 app.use(express.json());
@@ -38,4 +38,4 @@ process.on('SIGINT', () => {
 });
 
 
-app.get('/api/products', getProductsValues);
+// app.get('/api/products', getProductsValues);

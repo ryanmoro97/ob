@@ -1,4 +1,8 @@
+// import store from '../redux'
 import filtersStore from '../redux'
+import tableStore from '../redux'
+// import { filtersStore, tableStore } from '../redux';
+
 import client from '../index.js';
 import { gql } from '@apollo/client';
 
@@ -20,12 +24,25 @@ const GET_PRODUCT_VALUES = gql`
     }
   }
 `;
+const GET_VENDOR_PRODUCT_VALUES = gql`
+  query getVendorProductsValues($table: Int!, $filters: FiltersInput!) {
+    getVendorProductsValues(table: $table, filters: $filters) {
+      id,
+      description,
+      brand,
+      upc,
+      msrp,
+      size,
+      color,
+      speed
+    }
+  }
+`;
 
 const getProductsValues = async () => {
   try {
+    const table = tableStore.getState().table.table;
     const filtersStateEntries = filtersStore.getState().filters;
-    console.log('filtersStateEntries', filtersStateEntries);
-
     const nonEmptyFilters = Object.fromEntries(
       Object.entries(filtersStateEntries).filter(([key, value]) => {
         if (typeof value === 'string') {
@@ -36,11 +53,20 @@ const getProductsValues = async () => {
         return true; 
       }).map(([key, value]) => [key, typeof value === 'object' ? value.value : value])
     );
-    const { data } = await client.query({
-      query: GET_PRODUCT_VALUES,
-      variables: { filters: nonEmptyFilters },
-    });
-    return data.getProductsValues;
+    if(table === 0){
+      const { data } = await client.query({
+        query: GET_PRODUCT_VALUES,
+        variables: { filters: nonEmptyFilters },
+      });
+      return data.getProductsValues;
+    }
+    else{
+      const { data } = await client.query({
+        query: GET_VENDOR_PRODUCT_VALUES,
+        variables: { table: table, filters: nonEmptyFilters },
+      });
+      return data.getVendorProductsValues;
+    }
   } catch (error) {
     console.error('getProductsValues', error);
   }

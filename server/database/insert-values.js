@@ -1,8 +1,8 @@
 const db = require('./db');
 
-const { products_Data, product_UPC_Data, product_MSRP_Data, product_brand_Data, product_sub_cat_Data, product_cat_Data, product_color_Data, product_speed_Data, product_size_Data } = require('./entity_values');
-const { taxonomy_brand, taxonomy_category, taxonomy_sub_category, taxonomy_vendor } = require('./taxonomy');
-const { TaxonomyBrand, TaxonomyCategory, TaxonomySubCategory, TaxonomyVendor, Product, ProductUPC, ProductMSRP, ProductBrand, ProductCategory, ProductSubCategory, ProductSize, ProductColor, ProductSpeed } = require('./create-tables');
+const { products_Data, product_UPC_Data, product_MSRP_Data, product_brand_Data, product_sub_cat_Data, product_cat_Data, product_color_Data, product_speed_Data, product_size_Data, product_trek_Data } = require('./entity_values');
+const { taxonomy_brand, taxonomy_category, taxonomy_sub_category, taxonomy_vendor, taxonomy, taxonomy_vendor_table } = require('./taxonomy');
+const { TaxonomyBrand, TaxonomyCategory, TaxonomySubCategory, TaxonomyVendor, TaxonomyVendorTable, Product, ProductUPC, ProductMSRP, ProductBrand, ProductCategory, ProductSubCategory, ProductSize, ProductColor, ProductSpeed, ProductTrek } = require('./create-tables');
 
 module.exports = {
     insertTaxonomyData: async function() {
@@ -22,6 +22,11 @@ module.exports = {
             const valuesTaxonomyVendor = taxonomy_vendor.map(taxonomy => ({ taxonomyId: taxonomy.taxonomyId, value: taxonomy.value}));
             await TaxonomyVendor.bulkCreate(valuesTaxonomyVendor);
             console.log('taxonomy_vendor values inserted');
+
+            const valuesTaxonomyVendorTable = taxonomy_vendor_table.map(taxonomy => ({ taxonomyId: taxonomy.taxonomyId, value: taxonomy.value}));
+            await TaxonomyVendorTable.bulkCreate(valuesTaxonomyVendorTable);
+            console.log('taxonomy_vendor_table values inserted');
+            
         } catch (err) {
             console.error(err);
         }
@@ -73,5 +78,16 @@ module.exports = {
         } catch (err) {
             console.error(err);
         }
-    }
+    },
+
+    // VENDOR DATA
+    insertProductTrekData: async function() {
+        try {
+            const valuesTrek = product_trek_Data.map(product => ({ id: product.id, description: product.description, brand: product.brand, upc: product.upc, msrp: product.msrp, size: product.size, color: product.color, speed: product.speed }));
+            await ProductTrek.bulkCreate(valuesTrek);
+            console.log('Trek values inserted');
+        } catch (err) {
+            console.error(err);
+        }
+    },
 }
