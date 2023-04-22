@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-import { useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 import '../styles/QueryButtons.css';
 import '../styles/ProductTable.css';
@@ -7,13 +6,39 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-const ProductTable = ({ products }) => {
+const ProductTable = ({ products, onDisplayedItemsChange }) => {
   const gridRef = useRef();
+  const [gridApi, setGridApi] = useState(null);
 
+  // update filtered rows
+  useEffect(() => {
+    if (gridApi) {
+      const displayedRows = gridApi.getModel().rowsToDisplay.map(rowNode => rowNode.data);
+      onDisplayedItemsChange(displayedRows);
+    }
+  }, [gridApi, products, onDisplayedItemsChange]);
+
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+  };
+
+  // update filtered rows on filter change
+  const updateFilteredRows = () => {
+    if (gridApi) {
+      const filteredRows = [];
+      gridApi.forEachNodeAfterFilter((rowNode) => {
+        filteredRows.push(rowNode.data);
+      });
+      onDisplayedItemsChange(filteredRows);
+    }
+  };
+
+  // reset filter model on first render
   const resetState = useCallback(() => {
     gridRef.current.api.setFilterModel(null);
   }, []);
   
+  // auto size columns on first render
   const onFirstDataRendered = useCallback((params) => {
     const columnApi = params.columnApi;
     columnApi.autoSizeAllColumns();
@@ -25,6 +50,7 @@ const ProductTable = ({ products }) => {
     return null;
   }
 
+  // get headers (product keys) from products if available
   const headers = products.length > 0 ? Object.keys(products[0]) : [];
   // console.log("products: ", products);
   // console.log("headers: ", headers);
@@ -92,6 +118,8 @@ const ProductTable = ({ products }) => {
         <AgGridReact
           ref={gridRef}
           columnDefs={columnDefs}
+          onGridReady={onGridReady}
+          onFilterChanged={updateFilteredRows}
           rowData={products}
           pagination={true}
           paginationPageSize={100}

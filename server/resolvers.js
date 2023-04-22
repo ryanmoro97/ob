@@ -25,10 +25,14 @@ const TAXONOMY_MODELS = {
   taxonomy_vendor: TaxonomyVendor,
 };
 
-const constructWhereClause = (filters) => {
+const constructWhereClause = (filters, vendortable = false) => {
+  console.log('vendortable', vendortable)
   let whereClause = {};
-  if (filters.brandFilter) {
+  if (filters.brandFilter && !vendortable) {
     whereClause = { ...whereClause, '$product_brand->taxonomy_brand.value$': filters.brandFilter };
+  }
+  else if (filters.brandFilter && vendortable) {
+    whereClause = { ...whereClause, '$brand$': filters.brandFilter };
   }
   if (filters.categoryFilter) {
     whereClause = { ...whereClause, '$product_category->taxonomy_category.value$': filters.categoryFilter };
@@ -42,13 +46,13 @@ const constructWhereClause = (filters) => {
   if (filters.modelIdFilter) { // matches beginning onwards
     whereClause = { ...whereClause, model_id: { [Op.iLike]: `${filters.modelIdFilter}%` }};
   } 
-  if (filters.skuFilter) {
+  if (filters.skuFilter) { // matches beginning onwards
     whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter}%` }};
   }
-  if (filters.upcFilter) {
+  if (filters.upcFilter) { // matches anywhere in string
     whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter}%` }};
   }
-  if (filters.sizeFilter) {
+  if (filters.sizeFilter) { // matches anywhere in string
     whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter}%` }};
   }
   return whereClause;
@@ -114,7 +118,7 @@ const resolvers = {
 
         getVendorProductsValues: async (_, { table, filters }) => {
           
-          const whereClause = constructWhereClause(filters);
+          const whereClause = constructWhereClause(filters, vendortable = true);
           try {
             const modelNames = Object.keys(db.models);
             const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomyId: table }});

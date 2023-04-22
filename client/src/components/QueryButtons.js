@@ -31,7 +31,6 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
   };
 
   const handleVendorChange = (selected) => {
-    console.log(selected);
     store.dispatch({ type: 'SET_TABLE', payload: selected.taxonomyId });
   }
 
@@ -65,11 +64,6 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
       label: 'Update',
       onClick: queryUpdate,
       show: [1, 2].includes(selectedMode),
-    },
-    {
-      label: 'Update Prices',
-      onClick: queryUpdatePrice,
-      show: [3].includes(selectedMode),
     },
     {
       label: 'Insert',

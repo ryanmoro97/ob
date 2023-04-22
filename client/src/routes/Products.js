@@ -7,16 +7,19 @@ import Filters from '../components/Filters';
 import queryReset from '../queries/queryReset';
 import queryUpdate from '../queries/queryUpdate';
 import queryFillModels from '../queries/queryFillModels';
-import queryUpdateExport from '../queries/queryUpdateExport';
+import queryAIMUpdate from '../queries/queryUpdateExport';
 import queryAIMExport from '../queries/queryAIMExport';
 import queryBCExport from '../queries/queryBCExport';
-import queryUpdatePrice from '../queries/queryUpdatePrice';
 import queryInsert from '../queries/queryInsert';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [fetchDataFlag, setFetchDataFlag] = useState(false);
     const [resetValues, setResetValues] = useState(false);
+    const [displayedItems, setDisplayedItems] = useState([]);
+    const [mode, setMode] = useState(1);
+    const [table, setTable] = useState(0);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,6 +39,19 @@ const Products = () => {
         setResetValues(false);
     }
 
+    const handleBCExport = () => {
+        queryBCExport(displayedItems);
+    };
+    const handleAIMExport = () => {
+        queryAIMExport(displayedItems);
+    };
+    const handleAimUpdate = () => {
+        queryAIMUpdate(displayedItems);
+    };
+    const handleInsert = () => {
+        queryInsert(displayedItems, mode, table);
+    };
+      
 
     return (
         <div className='container'>
@@ -49,16 +65,15 @@ const Products = () => {
                                 handleReset();
                             }}
                             queryUpdate={queryUpdate}
-                            queryUpdatePrice={queryUpdatePrice}
                             queryFillModels={queryFillModels}
-                            queryUpdateExport={queryUpdateExport}
-                            queryAIMExport={queryAIMExport}
-                            queryBCExport={queryBCExport}
-                            queryInsert={queryInsert}
+                            queryAIMUpdate={handleAimUpdate}
+                            queryAIMExport={handleAIMExport}
+                            queryBCExport={handleBCExport}
+                            queryInsert={handleInsert}
                         />
                         <Filters resetValues={resetValues} onResetDone={onResetDone}/>
                     </div>
-                    <ProductTable products={products} />
+                    <ProductTable products={products} onDisplayedItemsChange={setDisplayedItems} />
             </main>
         </div>
     );
