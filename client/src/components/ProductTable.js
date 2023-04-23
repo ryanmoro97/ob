@@ -39,7 +39,6 @@ const ProductTable = ({ products, onDisplayedProductsChange, onProductsModified 
 
   // update list of rows that have been edited
   const handleEditedRows = (event) => {
-    console.log("handleEditedRows");
     const rowIndex = event.rowIndex;
     const colId = event.column.colId;
     const newValue = event.newValue;
@@ -59,7 +58,6 @@ const ProductTable = ({ products, onDisplayedProductsChange, onProductsModified 
   
   // dont render if no product data is retreived
   if(!products){
-    console.log("products: ", products);
     return null;
   }
 
@@ -98,7 +96,7 @@ const ProductTable = ({ products, onDisplayedProductsChange, onProductsModified 
       field, 
       valueGetter: getCustomValueGetter(header), 
       editable: true,
-      filter, // set filter type
+      filter, 
       resizable: true,
       sortable: true,
     };

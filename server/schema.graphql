@@ -16,8 +16,8 @@ input FiltersInput {
   descriptionFilter: String
   modelIdFilter: String
   skuFilter: String
-  upcFilter: String
-  sizeFilter: String
+  barcodeFilter: String
+  partNumFilter: String
 }
 
 # product_obsession table

@@ -17,18 +17,17 @@ const {
 
 const getProductsValues = async (req, res) => {
     const filters = req.query || {};
-
     // const limit = 10;
-    console.log("FILTER: ", filters);
+    
     let whereClause = {};
     if (filters.brandFilter) {
       whereClause = { ...whereClause, '$product_brand->taxonomy_brand.value$': filters.brandFilter.value };
     }
-    if (filters.categoryFilter) {
-      whereClause = { ...whereClause, '$product_category->taxonomy_category.value$': filters.categoryFilter.value };
-    }
     if (filters.subCategoryFilter) {
       whereClause = { ...whereClause, '$product_sub_category->taxonomy_sub_category.value$': filters.subCategoryFilter.value };
+    }
+    if (filters.categoryFilter) {
+      whereClause = { ...whereClause, '$product_category->taxonomy_category.value$': filters.categoryFilter.value };
     }
     if (filters.descriptionFilter) {
       whereClause = { ...whereClause, description: { [Op.iLike]: `%${filters.descriptionFilter.value}%` }};
@@ -40,11 +39,11 @@ const getProductsValues = async (req, res) => {
       whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter.value}%` }};
     }
     if (filters.barcodeFilter) {
-      whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter.value}%` }};
-    }
-    if (filters.partNumFilter) {
-      whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter.value}%` }};
-    }
+      whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.barcodeFilter.value}%` }}; // or EAN
+    };
+    // if (filters.partNumFilter) {
+    //   whereClause = { ...whereClause, '$product_VPN.value$': { [Op.iLike]: `%${filters.partNumFilter.value}%` }};
+    // }
   
     try {
         const products = await Product.findAll({

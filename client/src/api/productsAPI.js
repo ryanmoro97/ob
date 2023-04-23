@@ -50,13 +50,17 @@ const getProductsValues = async () => {
         return true; 
       }).map(([key, value]) => [key, typeof value === 'object' ? value.value : value])
     );
+
+    // product obsession query
     if(table === 0){
+      console.log('getProductsValues', nonEmptyFilters);
       const { data } = await client.query({
         query: GET_PRODUCT_VALUES,
         variables: { filters: nonEmptyFilters },
       });
       return data.getProductsValues;
     }
+    // vendor table query
     else{
       const { data } = await client.query({
         query: GET_VENDOR_PRODUCT_VALUES,

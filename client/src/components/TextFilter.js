@@ -1,7 +1,7 @@
 import '../styles/Filters.css';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
-function InputText( { onChange, placeholder, resetValues, resetDone } ) {
+function TextFilter( { onChange, placeholder, resetValues, resetDone } ) {
     const inputRef = useRef(null);
     const [value, setValue] = useState('');
 
@@ -55,4 +55,4 @@ function InputText( { onChange, placeholder, resetValues, resetDone } ) {
             />;
 }
 
-export default InputText;
+export default TextFilter;

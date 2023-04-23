@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import '../styles/QueryButtons.css';
 import store from '../redux';
 
-import DropDownMenu from '../components/DropDownMenu'
+import DropDownMenu from './DropDownMenu'
 import getTaxonomyValues from '../api/taxonomyAPI';
 
 const modeOptions = [

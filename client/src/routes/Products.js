@@ -9,10 +9,11 @@ import Filters from '../components/Filters';
 import queryReset from '../queries/queryReset';
 import queryUpdate from '../queries/queryUpdate';
 import queryFillModels from '../queries/queryFillModels';
-import queryAIMUpdate from '../queries/queryUpdateExport';
+import queryAIMUpdate from '../queries/queryAIMUpdate';
 import queryAIMExport from '../queries/queryAIMExport';
 import queryBCExport from '../queries/queryBCExport';
-import queryInsert from '../queries/queryInsert';
+import queryVendorInsert from '../queries/queryVendorInsert';
+import VendorInsertPopup from '../components/VendorInsertPopup';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -22,6 +23,7 @@ const Products = () => {
     const [modifiedProducts, setModifiedProducts] = useState([]);
     const selectedMode = useSelector((state) => state.mode.mode);
     const selectedTable = useSelector((state) => state.table.table);
+    const [popupOpen, setPopupOpen] = useState(false);
 
 
     useEffect(() => {
@@ -57,11 +59,6 @@ const Products = () => {
         await queryUpdate(modifiedProducts, selectedTable);
         queryAIMUpdate(displayedProducts);
     };
-    const handleInsert = async () => {
-        // force update on modified products before insert
-        await queryUpdate(modifiedProducts, selectedTable);
-        queryInsert(displayedProducts, selectedMode, selectedTable);
-    };
     const handleUpdate = () => {
         queryUpdate(modifiedProducts, selectedTable);
     };
@@ -69,6 +66,17 @@ const Products = () => {
         // force update on modified products before filling models
         await queryUpdate(modifiedProducts, selectedTable);
         queryFillModels(displayedProducts);
+    };
+    
+    const handleInsert = () => {
+        setPopupOpen(true);
+    };
+
+    const handleConfirmInsert = async (sub_category) => {
+        setPopupOpen(false);
+        // force update on modified products before insert
+        await queryUpdate(modifiedProducts, selectedTable);
+        queryVendorInsert(displayedProducts, selectedMode, selectedTable, sub_category);
     };
 
     const updateModifiedProducts = (rowIndex, colId, newValue) => {
@@ -116,6 +124,12 @@ const Products = () => {
                         onProductsModified={updateModifiedProducts} 
                     />
             </main>
+            <VendorInsertPopup
+                isOpen={popupOpen}
+                onClose={() => setPopupOpen(false)}
+                onConfirm={handleConfirmInsert}
+                // numItems={products.length} 
+            />
         </div>
     );
 }

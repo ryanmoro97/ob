@@ -1,4 +1,3 @@
-// const getTaxonomyValues = require('./routes/taxonomyValues');
 const { Op } = require('sequelize');
 const db = require('./database/db');
 const { 
@@ -26,7 +25,6 @@ const TAXONOMY_MODELS = {
 };
 
 const constructWhereClause = (filters, vendortable = false) => {
-  console.log('vendortable', vendortable)
   let whereClause = {};
   if (filters.brandFilter && !vendortable) {
     whereClause = { ...whereClause, '$product_brand->taxonomy_brand.value$': filters.brandFilter };
@@ -49,12 +47,12 @@ const constructWhereClause = (filters, vendortable = false) => {
   if (filters.skuFilter) { // matches beginning onwards
     whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter}%` }};
   }
-  if (filters.upcFilter) { // matches anywhere in string
-    whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.upcFilter}%` }};
+  if (filters.barcodeFilter) {
+    whereClause = { ...whereClause, '$product_UPC.value$': { [Op.iLike]: `%${filters.barcodeFilter}%` }}; // or EAN
   }
-  if (filters.sizeFilter) { // matches anywhere in string
-    whereClause = { ...whereClause, '$product_size.value$': { [Op.iLike]: `%${filters.sizeFilter}%` }};
-  }
+  // if (filters.partNumFilter) {
+  //   whereClause = { ...whereClause, '$product_VPN.value$': { [Op.iLike]: `%${filters.partNumFilter}%` }};
+  // }
   return whereClause;
 }
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import InputDropDown from './DropdownFilter';
-import InputText from './TextFilter';
+import TextFilter from './TextFilter';
 import filtersStore from '../redux'
 import getTaxonomyValues from '../api/taxonomyAPI';
 
@@ -10,11 +10,11 @@ function getInputFieldsInitial(mode) {
     const baseFields = [
       // Common fields for both modes
       { name: 'brand', label: 'Brand', options: [], component: InputDropDown, reducer: 'SET_BRAND_FILTER' },
-      { name: 'description', label: 'Description', component: InputText, reducer: 'SET_DESCRIPTION_FILTER' },
-      { name: 'model_id', label: 'Model ID', component: InputText, reducer: 'SET_MODEL_ID_FILTER' },
-      { name: 'sku', label: 'Sku', component: InputText, reducer: 'SET_SKU_FILTER' },
-      { name: 'barcode', label: 'Barcode', component: InputText, reducer: 'SET_BARCODE_FILTER' },
-      { name: 'partnum', label: 'Part Number', component: InputText, reducer: 'SET_PART_NUM_FILTER' },
+      { name: 'description', label: 'Description', component: TextFilter, reducer: 'SET_DESCRIPTION_FILTER' },
+      { name: 'model_id', label: 'Model ID', component: TextFilter, reducer: 'SET_MODEL_ID_FILTER' },
+      { name: 'sku', label: 'Sku', component: TextFilter, reducer: 'SET_SKU_FILTER' },
+      { name: 'barcode', label: 'Barcode', component: TextFilter, reducer: 'SET_BARCODE_FILTER' },
+      { name: 'partnum', label: 'Part Number', component: TextFilter, reducer: 'SET_PART_NUM_FILTER' },
     ];
   
     if (mode === 1) {
@@ -26,7 +26,7 @@ function getInputFieldsInitial(mode) {
     } else if (mode === 2) {
       return [
         ...baseFields,
-        { name: 'model_year', label: 'Model Year', component: InputText, reducer: 'SET_MODEL_YEAR_FILTER' },
+        { name: 'model_year', label: 'Model Year', component: TextFilter, reducer: 'SET_MODEL_YEAR_FILTER' },
       ];
     }
     return baseFields;

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../styles/Filters.css';
 
-function InputDropDown({ options, placeholder, onChange, resetValues, resetDone }) {
+function DropDownFilter({ options, placeholder, onChange, resetValues, resetDone }) {
   const [inputValue, setInputValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const inputRef = useRef(null);
-  // const [value, setValue] = useState('');
 
 
   const resetDoneCallback = useCallback(() => {
@@ -71,13 +70,19 @@ function InputDropDown({ options, placeholder, onChange, resetValues, resetDone 
       }
       setFilteredOptions([]);
       const currentTd = event.target.closest('td');
-      const nextTd = currentTd.nextElementSibling;
-      if (nextTd) {
-        const nextInput = nextTd.querySelector('input');
-        if (nextInput) {
-          nextInput.focus();
-          event.preventDefault(); // prevent the default behavior for Tab only
+      console.log(currentTd);
+      if(currentTd){
+        const nextTd = currentTd.nextElementSibling;
+        if (nextTd) {
+          const nextInput = nextTd.querySelector('input');
+          if (nextInput) {
+            nextInput.focus();
+            event.preventDefault(); // prevent the default behavior for Tab only
+          }
         }
+      }
+      else{
+        setIsInputFocused(false);
       }
     }
   }
@@ -98,8 +103,8 @@ function InputDropDown({ options, placeholder, onChange, resetValues, resetDone 
     {isInputFocused && filteredOptions.length > 0 && (
         <div className="autocomplete-dropdown" style={{ top: inputRef.current.offsetHeight }}>
         <ul className="autocomplete-options">
-            {filteredOptions.map((option) => (
-            <li key={option} onClick={() => handleOptionClick(option)}>
+            {filteredOptions.map((option, index) => (
+            <li key={index} onClick={() => handleOptionClick(option)}>
                 {option}
             </li>
             ))}
@@ -111,4 +116,4 @@ function InputDropDown({ options, placeholder, onChange, resetValues, resetDone 
 }
 
 
-export default InputDropDown;
+export default DropDownFilter;

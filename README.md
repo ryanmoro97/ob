@@ -38,7 +38,7 @@ Actions: Vendor Selector, Search, Reset, Update, Insert
 Filters(Top level): Brand, Description, Model ID, SKU, Barcode(upc,ean), Part Number(vpn,mpn), Model Year
 
 ### Mode 3 - Excel -> Vendor
-Actions: Vendor Selector, File Selection, Update Prices, Insert, Import
+Actions: Vendor Selector, File Selection, Update Prices, Insert
 - Vendor Selector: Select vendor table to query/insert data from
 - File Selector: Select vendor pricelist excel file
 - Insert: 
@@ -68,9 +68,9 @@ Actions: File Selector, Import
 
 ### Mode 2
 Vendor table -> OB
-    - Insert current selecion of products (viewable products, both filters apply)
-    - Select sub_category
-    - append (implicit) category, Inventory Type (A/S), Status, Tax Class, Units (default 1)  
+- Insert current selecion of products (viewable products, both filters apply)
+- Select sub_category
+- append (implicit) category, Inventory Type (A/S), Status, Tax Class, Units (default 1)  
 
 ### Mode 3
 Product vendor pricelists (integrate price update and new product import)
@@ -117,7 +117,7 @@ Retail, cost, price_a, price_b, price_c, avg_cost, w_cost
 body, online, web_visible, free_shipping, shipping, meta_title, 
 meta_description, notes
 ### POS
-saq_pk_1, saq_pk_2, saq_pk3 - different tables?
+saq_pk_1, saq_pk_2, saq_pk3
 ### Online
 bc_product_id, bc_sku_id, bc_rule_id, bc_image_id
 ### Image - Core - for multiple images per item
