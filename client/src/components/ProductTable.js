@@ -1,37 +1,50 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-
+import _ from 'lodash';
 import '../styles/QueryButtons.css';
 import '../styles/ProductTable.css';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-const ProductTable = ({ products, onDisplayedItemsChange }) => {
+const ProductTable = ({ products, onDisplayedProductsChange, onProductsModified }) => {
   const gridRef = useRef();
   const [gridApi, setGridApi] = useState(null);
+  // mutable copy of products
 
-  // update filtered rows
-  useEffect(() => {
-    if (gridApi) {
-      const displayedRows = gridApi.getModel().rowsToDisplay.map(rowNode => rowNode.data);
-      onDisplayedItemsChange(displayedRows);
-    }
-  }, [gridApi, products, onDisplayedItemsChange]);
+  const productsCopy = _.cloneDeep(products);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
   };
 
-  // update filtered rows on filter change
+  // update filtered rows
+  useEffect(() => {
+    if (gridApi) {
+      const displayedRows = gridApi.getModel().rowsToDisplay.map(rowNode => rowNode.data);
+      onDisplayedProductsChange(displayedRows);
+    }
+  }, [gridApi, products, onDisplayedProductsChange]);
+
+
+  // update rows on filter change
   const updateFilteredRows = () => {
     if (gridApi) {
       const filteredRows = [];
       gridApi.forEachNodeAfterFilter((rowNode) => {
         filteredRows.push(rowNode.data);
       });
-      onDisplayedItemsChange(filteredRows);
+      onDisplayedProductsChange(filteredRows);
     }
   };
+
+  // update list of rows that have been edited
+  const handleEditedRows = (event) => {
+    console.log("handleEditedRows");
+    const rowIndex = event.rowIndex;
+    const colId = event.column.colId;
+    const newValue = event.newValue;
+    onProductsModified(rowIndex, colId, newValue);
+  }
 
   // reset filter model on first render
   const resetState = useCallback(() => {
@@ -78,7 +91,6 @@ const ProductTable = ({ products, onDisplayedItemsChange }) => {
           field += '.value';
         }
     }
-    
   
     // Return the column definition with filter added
     return { 
@@ -120,7 +132,8 @@ const ProductTable = ({ products, onDisplayedItemsChange }) => {
           columnDefs={columnDefs}
           onGridReady={onGridReady}
           onFilterChanged={updateFilteredRows}
-          rowData={products}
+          onCellValueChanged={handleEditedRows}
+          rowData={productsCopy}
           pagination={true}
           paginationPageSize={100}
           domLayout='autoHeight'

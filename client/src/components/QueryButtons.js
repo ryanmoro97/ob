@@ -13,13 +13,12 @@ const modeOptions = [
   { id: 4, value: 'SaqPK / Part# Import' },
 ];
 
-function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryReset, queryFillModels, queryUpdateExport, queryBCExport, queryAIMExport, queryInsert}) {
+function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryReset, queryFillModels, queryAIMUpdate, queryBCExport, queryAIMExport, queryInsert}) {
   const selectedMode = useSelector((state) => state.mode.mode);
   const [vendorOptions, setVendorOptions] = useState([]);
 
   const handleModeChange = (selected) => {
     const mode = selected.id;
-    // setSelectedMode(mode);
     store.dispatch({ type: 'SET_MODE', payload: mode });
     // reset table to pull products from on mode switch
     if(mode === 1) {
@@ -76,8 +75,8 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
       show: selectedMode === 1,
     },
     {
-      label: 'Update Export',
-      onClick: queryUpdateExport,
+      label: 'AIM Update',
+      onClick: queryAIMUpdate,
       show: selectedMode === 1,
     },
     {
@@ -93,7 +92,7 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
     {
       label: 'Import',
       onClick: queryAIMExport,
-      show: [4, 3].includes(selectedMode),
+      show: [4].includes(selectedMode),
     },
   ];
 

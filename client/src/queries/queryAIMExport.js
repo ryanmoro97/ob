@@ -35,7 +35,7 @@ const queryAIMExport = (products) => {
 
     const firstItem = products[0];
     const date = new Date().toISOString().slice(0, 10);
-    const fileName = `product_export_${firstItem.brand}_${firstItem.category}_${date}.xlsx`;
+    const fileName = `AIM_export_${firstItem.brand}_${firstItem.category}_${date}.xlsx`;
 
     XLSX.writeFile(wb, fileName);
 };

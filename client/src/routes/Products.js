@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
+import { useSelector } from 'react-redux';
 import ProductTable from '../components/ProductTable';
 import QueryButtons from '../components/QueryButtons';
 import getProducts from '../api/productsAPI';
@@ -16,9 +18,10 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [fetchDataFlag, setFetchDataFlag] = useState(false);
     const [resetValues, setResetValues] = useState(false);
-    const [displayedItems, setDisplayedItems] = useState([]);
-    const [mode, setMode] = useState(1);
-    const [table, setTable] = useState(0);
+    const [displayedProducts, setDisplayedProducts] = useState([]);
+    const [modifiedProducts, setModifiedProducts] = useState([]);
+    const selectedMode = useSelector((state) => state.mode.mode);
+    const selectedTable = useSelector((state) => state.table.table);
 
 
     useEffect(() => {
@@ -39,17 +42,51 @@ const Products = () => {
         setResetValues(false);
     }
 
-    const handleBCExport = () => {
-        queryBCExport(displayedItems);
+    const handleBCExport = async () => {
+        // force update on modified products before export
+        await queryUpdate(modifiedProducts, selectedTable);
+        queryBCExport(displayedProducts);
     };
-    const handleAIMExport = () => {
-        queryAIMExport(displayedItems);
+    const handleAIMExport = async () => {
+        // force update on modified products before export
+        await queryUpdate(modifiedProducts, selectedTable);
+        queryAIMExport(displayedProducts);
     };
-    const handleAimUpdate = () => {
-        queryAIMUpdate(displayedItems);
+    const handleAimUpdate = async () => {
+        // force update on modified products before export
+        await queryUpdate(modifiedProducts, selectedTable);
+        queryAIMUpdate(displayedProducts);
     };
-    const handleInsert = () => {
-        queryInsert(displayedItems, mode, table);
+    const handleInsert = async () => {
+        // force update on modified products before insert
+        await queryUpdate(modifiedProducts, selectedTable);
+        queryInsert(displayedProducts, selectedMode, selectedTable);
+    };
+    const handleUpdate = () => {
+        queryUpdate(modifiedProducts, selectedTable);
+    };
+    const handleFillModels = async () => {
+        // force update on modified products before filling models
+        await queryUpdate(modifiedProducts, selectedTable);
+        queryFillModels(displayedProducts);
+    };
+
+    const updateModifiedProducts = (rowIndex, colId, newValue) => {
+        console.log('updateModifiedProducts');
+        // new copy to avoid direct mutation
+        const updatedProducts = _.cloneDeep(products);
+        updatedProducts[rowIndex][colId] = newValue;
+        setProducts(updatedProducts);
+
+        const updatedModifiedProducts = _.cloneDeep(modifiedProducts);
+        const existingProductIndex = updatedModifiedProducts.findIndex(product => product.id === updatedProducts[rowIndex].id);
+        if (existingProductIndex > -1) {
+            updatedModifiedProducts[existingProductIndex] = updatedProducts[rowIndex];
+        } else {
+            updatedModifiedProducts.push(updatedProducts[rowIndex]);
+        }
+        setModifiedProducts(updatedModifiedProducts);
+        console.log('modifiedProducts: ', modifiedProducts);
     };
       
 
@@ -64,8 +101,8 @@ const Products = () => {
                                 setFetchDataFlag(true);
                                 handleReset();
                             }}
-                            queryUpdate={queryUpdate}
-                            queryFillModels={queryFillModels}
+                            queryUpdate={handleUpdate}
+                            queryFillModels={handleFillModels}
                             queryAIMUpdate={handleAimUpdate}
                             queryAIMExport={handleAIMExport}
                             queryBCExport={handleBCExport}
@@ -73,7 +110,11 @@ const Products = () => {
                         />
                         <Filters resetValues={resetValues} onResetDone={onResetDone}/>
                     </div>
-                    <ProductTable products={products} onDisplayedItemsChange={setDisplayedItems} />
+                    <ProductTable 
+                        products={products} 
+                        onDisplayedProductsChange={setDisplayedProducts} 
+                        onProductsModified={updateModifiedProducts} 
+                    />
             </main>
         </div>
     );
