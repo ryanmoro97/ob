@@ -4,6 +4,10 @@ type Query {
   getVendorProductsValues(table: Int!, filters: FiltersInput!): [VendorProduct]
 }
 
+type Mutation {
+  insertVendorProducts(products: [VendorProductInput!]!, vendorID: ID!, sub_categoryID: String!): String!
+}
+
 type Taxonomy {
   taxonomyId: Int!
   value: String!
@@ -40,6 +44,19 @@ type Product {
 
 # vendor product table
 type VendorProduct {
+  id: Int!
+  description: String
+
+  brand: String
+  
+  upc: String
+  msrp: String
+  size: String
+  color: [String]
+  speed: String
+}
+
+input VendorProductInput {
   id: Int!
   description: String
 

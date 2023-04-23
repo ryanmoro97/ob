@@ -4,7 +4,7 @@ import '../styles/QueryButtons.css';
 import store from '../redux';
 
 import DropDownMenu from './DropDownMenu'
-import getTaxonomyValues from '../api/taxonomyAPI';
+import getTaxonomyValues from '../api/GetTaxonomy';
 
 const modeOptions = [
   { id: 1, value: 'Product Table' },

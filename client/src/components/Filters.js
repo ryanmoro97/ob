@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import InputDropDown from './DropdownFilter';
 import TextFilter from './TextFilter';
 import filtersStore from '../redux'
-import getTaxonomyValues from '../api/taxonomyAPI';
+import getTaxonomyValues from '../api/GetTaxonomy';
 
 function getInputFieldsInitial(mode) {
     const baseFields = [

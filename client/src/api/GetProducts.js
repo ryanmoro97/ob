@@ -53,7 +53,6 @@ const getProductsValues = async () => {
 
     // product obsession query
     if(table === 0){
-      console.log('getProductsValues', nonEmptyFilters);
       const { data } = await client.query({
         query: GET_PRODUCT_VALUES,
         variables: { filters: nonEmptyFilters },

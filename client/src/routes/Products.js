@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { useSelector } from 'react-redux';
 import ProductTable from '../components/ProductTable';
 import QueryButtons from '../components/QueryButtons';
-import getProducts from '../api/productsAPI';
+import getProducts from '../api/GetProducts';
 import Filters from '../components/Filters';
 
 import queryReset from '../queries/queryReset';
@@ -21,7 +21,7 @@ const Products = () => {
     const [resetValues, setResetValues] = useState(false);
     const [displayedProducts, setDisplayedProducts] = useState([]);
     const [modifiedProducts, setModifiedProducts] = useState([]);
-    const selectedMode = useSelector((state) => state.mode.mode);
+    // const selectedMode = useSelector((state) => state.mode.mode);
     const selectedTable = useSelector((state) => state.table.table);
     const [popupOpen, setPopupOpen] = useState(false);
 
@@ -76,7 +76,7 @@ const Products = () => {
         setPopupOpen(false);
         // force update on modified products before insert
         await queryUpdate(modifiedProducts, selectedTable);
-        queryVendorInsert(displayedProducts, selectedMode, selectedTable, sub_category);
+        queryVendorInsert(displayedProducts, selectedTable, sub_category);
     };
 
     const updateModifiedProducts = (rowIndex, colId, newValue) => {
@@ -128,7 +128,7 @@ const Products = () => {
                 isOpen={popupOpen}
                 onClose={() => setPopupOpen(false)}
                 onConfirm={handleConfirmInsert}
-                // numItems={products.length} 
+                numItems={products.length} 
             />
         </div>
     );

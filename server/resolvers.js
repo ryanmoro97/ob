@@ -58,79 +58,98 @@ const constructWhereClause = (filters, vendortable = false) => {
 
 
 const resolvers = {
-    Query: {
-        getTaxonomyValues: async (_, { taxonomyClass }) => {
-            const TaxonomyModel = TAXONOMY_MODELS[taxonomyClass];
-            if (!TaxonomyModel) {
-                throw new Error(`Invalid taxonomy type: ${taxonomyClass}`);
-            }
-
-            const taxonomyValues = await TaxonomyModel.findAll({
-                attributes: ['taxonomyId', 'value']
-            });
-            return taxonomyValues
-        },
-
-        getProductsValues: async (_, { filters }) => {
-            const whereClause = constructWhereClause(filters);
-            try {
-                const products = await Product.findAll({
-                    include: [
-                        { model: ProductBrand, include: [{ model: TaxonomyBrand, attributes: ['value'] }] },
-                        { model: ProductCategory, include: [{ model: TaxonomyCategory, attributes: ['value'] }]},
-                        { model: ProductSubCategory, include: [{ model: TaxonomySubCategory, attributes: ['value'] }] },
-                        { model: ProductUPC, attributes: ['value'] }, 
-                        { model: ProductMSRP, attributes: ['value'] },
-                        { model: ProductSize, attributes: ['value'] }, 
-                        { model: ProductColor, attributes: ['value'] }, 
-                        { model: ProductSpeed, attributes: ['value'] },
-                        ],
-                    where: whereClause,
-                });
-
-                const productsWithAttributes = products.map(product => {
-                    const { product_brand, product_category, product_sub_category,
-                        product_UPC, product_MSRP, product_size, product_color, product_speed,
-                        ...productData
-                    } = product.toJSON();
-                    return {
-                        ...productData,
-                        brand: product_brand.taxonomy_brand.value,
-                        category: product_category.taxonomy_category.value,
-                        subCategory: product_sub_category.taxonomy_sub_category.value,
-                        upc: product_UPC?.value,
-                        msrp: product_MSRP?.value,
-                        size: product_size?.value,
-                        color: product_color?.value,
-                        speed: product_speed?.value,    
-                    };
-                });
-                  
-
-                return productsWithAttributes;
-            } catch (error) {
-              console.error(error);
-              throw error;
-            }
-        },
-
-        getVendorProductsValues: async (_, { table, filters }) => {
-          
-          const whereClause = constructWhereClause(filters, vendortable = true);
-          try {
-            const modelNames = Object.keys(db.models);
-            const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomyId: table }});
-            const products = await db.model(vendorTable.value).findAll({where: whereClause});
-            return products;
+  Query: {
+      getTaxonomyValues: async (_, { taxonomyClass }) => {
+          const TaxonomyModel = TAXONOMY_MODELS[taxonomyClass];
+          if (!TaxonomyModel) {
+              throw new Error(`Invalid taxonomy type: ${taxonomyClass}`);
           }
-          catch (error) {
+
+          const taxonomyValues = await TaxonomyModel.findAll({
+              attributes: ['taxonomyId', 'value']
+          });
+          return taxonomyValues
+      },
+
+      getProductsValues: async (_, { filters }) => {
+          const whereClause = constructWhereClause(filters);
+          try {
+              const products = await Product.findAll({
+                  include: [
+                      { model: ProductBrand, include: [{ model: TaxonomyBrand, attributes: ['value'] }] },
+                      { model: ProductCategory, include: [{ model: TaxonomyCategory, attributes: ['value'] }]},
+                      { model: ProductSubCategory, include: [{ model: TaxonomySubCategory, attributes: ['value'] }] },
+                      { model: ProductUPC, attributes: ['value'] }, 
+                      { model: ProductMSRP, attributes: ['value'] },
+                      { model: ProductSize, attributes: ['value'] }, 
+                      { model: ProductColor, attributes: ['value'] }, 
+                      { model: ProductSpeed, attributes: ['value'] },
+                      ],
+                  where: whereClause,
+              });
+
+              const productsWithAttributes = products.map(product => {
+                  const { product_brand, product_category, product_sub_category,
+                      product_UPC, product_MSRP, product_size, product_color, product_speed,
+                      ...productData
+                  } = product.toJSON();
+                  return {
+                      ...productData,
+                      brand: product_brand.taxonomy_brand.value,
+                      category: product_category.taxonomy_category.value,
+                      subCategory: product_sub_category.taxonomy_sub_category.value,
+                      upc: product_UPC?.value,
+                      msrp: product_MSRP?.value,
+                      size: product_size?.value,
+                      color: product_color?.value,
+                      speed: product_speed?.value,    
+                  };
+              });
+                
+
+              return productsWithAttributes;
+          } catch (error) {
             console.error(error);
             throw error;
           }
-        },
+      },
 
+      getVendorProductsValues: async (_, { table, filters }) => {
+        
+        const whereClause = constructWhereClause(filters, vendortable = true);
+        try {
+          const modelNames = Object.keys(db.models);
+          const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomyId: table }});
+          const products = await db.model(vendorTable.value).findAll({where: whereClause});
+          return products;
+        }
+        catch (error) {
+          console.error(error);
+          throw error;
+        }
+      },
+
+      
+      
     },
+  Mutation: {
+    insertVendorProducts: async (_, { products, vendorID, sub_categoryID }) => {
+      try {
+        await Promise.all(products.map(async (product) => {
+          await db.query(
+            'INSERT INTO Product (product_id, vendor_id, sub_category ...) VALUES ($1, $2, $3, $4)',
+            [product.id, vendorID, sub_category]
+            );
+        }));
+        
+        return "Success";
+      } catch (error) {
+        console.error('insertVendorItems', error);
+        throw new Error("Error inserting vendor items");
+      }
+    },
+  }
 }
-
-module.exports = resolvers;
+    
+    module.exports = resolvers;
 

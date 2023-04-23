@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/popup.css'
 import DropDownFilter from './DropdownFilter';
-import getTaxonomyValues from '../api/taxonomyAPI';
+import getTaxonomyValues from '../api/GetTaxonomy';
 
 const VendorInsertPopup = ({ isOpen, onClose, onConfirm, numItems }) => {
     const [subCatOptions, setSubCatOptions] = useState([]);
