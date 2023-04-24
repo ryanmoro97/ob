@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation {
-  insertVendorProducts(products: [VendorProductInput!]!, vendorID: ID!, sub_categoryID: String!): String!
+  insertVendorProducts(products: [VendorProductInput!]!, vendorID: Int!, sub_category: String!): String!
 }
 
 type Taxonomy {

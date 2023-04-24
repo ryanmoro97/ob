@@ -16,7 +16,7 @@ const Product = CreateProductTable();
 const ProductBrand = CreateAttributeTable('product_brand', DataTypes.INTEGER);
 const ProductCategory = CreateAttributeTable('product_category', DataTypes.INTEGER);
 const ProductSubCategory = CreateAttributeTable('product_sub_category', DataTypes.INTEGER);
-const ProductUPC = CreateAttributeTable('product_UPC', DataTypes.TEXT)
+const ProductUPC = CreateAttributeTable('product_UPC', DataTypes.TEXT, 12, true);
 const ProductMSRP = CreateAttributeTable('product_MSRP', DataTypes.DECIMAL(10, 2));
 
 // EXTRA ATTRIBUTES

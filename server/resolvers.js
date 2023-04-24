@@ -133,9 +133,15 @@ const resolvers = {
       
     },
   Mutation: {
-    insertVendorProducts: async (_, { products, vendorID, sub_categoryID }) => {
+    insertVendorProducts: async (_, { products, vendorID, sub_category }) => {
+      console.log('insertVendorProducts', products, vendorID, sub_category);
+
       try {
+        // get vendor table id
+        
+        
         await Promise.all(products.map(async (product) => {
+          // upc/ean must be unique
           await db.query(
             'INSERT INTO Product (product_id, vendor_id, sub_category ...) VALUES ($1, $2, $3, $4)',
             [product.id, vendorID, sub_category]

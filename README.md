@@ -12,6 +12,7 @@ npm start
 - starts client and nodemon server concurrently
 
 
+
 ## App
 ### Mode 1 - Product OB 
 Main Product Table
@@ -35,6 +36,7 @@ Actions: Vendor Selector, Search, Reset, Update, Insert
 - Reset: Clear all top level filters
 - Update: Send modified rows to update DB tables
 - Insert: Insert displayed rows from selected vendor table to OB
+
 Filters(Top level): Brand, Description, Model ID, SKU, Barcode(upc,ean), Part Number(vpn,mpn), Model Year
 
 ### Mode 3 - Excel -> Vendor
@@ -65,6 +67,7 @@ Actions: File Selector, Import
     - sub_category must be selected (or 3 digits in model_id/new_sku)
     - reference taxonomy_sub_cat_fields table
 - Pricing fields update on export (OurPrice, A, B, C)
+- Enforce rules on export (Sizing, Gender)
 
 ### Mode 2
 Vendor table -> OB
@@ -74,18 +77,23 @@ Vendor table -> OB
 
 ### Mode 3
 Product vendor pricelists (integrate price update and new product import)
-    - SQLBrowse SaqPK/part# Aim Export upload
-    - Vendor pricelist
-    - map vendor specific fields to OB format
-    - enforce Brand on taxonomy list
-        - dropdown to correct selection or add new brand to taxonomy
-    - append non existing products to vendor table
-    - update cost/retail (vendor & OB table) on existing upc/ean/vpn/mpn
-    - maintain list of ids updated in OB -> AIM Update
+- SQLBrowse SaqPK/part# Aim Export upload
+- Vendor pricelist
+- map vendor specific fields to OB format
+- enforce Brand on taxonomy list
+- dropdown to correct selection or add new brand to taxonomy
+    - append non existing products to vendor table (UPC/EAN unique)
+- update cost/retail (vendor & OB table) on existing upc/ean/vpn/mpn
+- maintain list of ids updated in OB -> AIM Update
 
 ### Mode 4
 Values: SKU, SaqPK1, SaqPK2, SaqPK3, VPN1, VPN2, VPN3 
 - assign new values based on sku
+
+### Extra
+Multple value attributes
+Create/Save user generated queries or define all necessary ones
+
 
 ### Menu AIM/BC
 AIM + BigCommerce API integration
@@ -151,3 +159,7 @@ pkg_weight_unit
 ### SubCategory Specific Attributes
 display model year, relevant fields, tax class
 
+
+### Before bulk data transfer import
+Enforce unique UPC (len 12), EAN (len 13) 
+Uniform Sizing, Gender, Measurements
