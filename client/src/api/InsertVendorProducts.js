@@ -2,17 +2,16 @@ import { gql } from '@apollo/client';
 import client from '../index.js';
 
 const INSERT_VENDOR_PRODUCTS = gql`
-  mutation InsertVendorItems($products: [ProductInput!]!, $vendorID: Int!, $sub_category: String!) {
-    insertVendorItems(products: $products, vendorID: $vendorID, sub_categoryID: $sub_category)
+  mutation insertVendorProducts($products: [VendorProductInput!]!, $vendorID: Int!, $sub_category: String!) {
+    insertVendorProducts(products: $products, vendorID: $vendorID, sub_category: $sub_category)
   }
 `;
 
-
 const InsertVendorProducts = async (products, vendorID, sub_category) => {
   console.log('InsertVendorProducts()');
-  console.log('products: ', products);
-  console.log('vendorID: ', vendorID);
-  console.log('sub_category: ', sub_category);
+  console.log("mutation:", INSERT_VENDOR_PRODUCTS);
+  console.log("variables:", { products, vendorID, sub_category });
+
 
   try {
     const { data } = await client.mutate({
@@ -23,7 +22,7 @@ const InsertVendorProducts = async (products, vendorID, sub_category) => {
     return data.success;
   } catch (error) {
     console.error(error);
-    throw new Error('Error: ', error.message);
+    throw new Error(`Error: ${error.message}`);
   }
 };
   

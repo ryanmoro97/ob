@@ -136,23 +136,35 @@ const resolvers = {
     insertVendorProducts: async (_, { products, vendorID, sub_category }) => {
       console.log('insertVendorProducts', products, vendorID, sub_category);
 
-      try {
-        // get vendor table id
+      // try {
+      //   // get sub_category id
+      //   const subCategory = await TaxonomySubCategory.findOne({ where: { value: sub_category } });
+      //   if (!subCategory) {
+      //     throw new Error(`Sub Category: '${sub_category}' not found`);
+      //   }
+      //   console.log('subCategory', subCategory);
+      //   // const subCategoryId = subCategory.id;
+
+      //   // const createdProducts = [];
+      //   // for (const product of products) {
+      //   //   try {
+      //   //     const productInstance = Product.build({
+      //   //       description: product.description,
+      //   //     });
+      //   //     await productInstance.save();
+      //   //     console.log('Inserted product ID:', productInstance.id);
+      //   //     createdProducts.push(productInstance);
+      //   //   } catch (error) {
+      //   //     console.log(`Error inserting product with ID ${product.id}:`, error.message);
+      //   //   }
+      //   // }
         
-        
-        await Promise.all(products.map(async (product) => {
-          // upc/ean must be unique
-          await db.query(
-            'INSERT INTO Product (product_id, vendor_id, sub_category ...) VALUES ($1, $2, $3, $4)',
-            [product.id, vendorID, sub_category]
-            );
-        }));
-        
-        return "Success";
-      } catch (error) {
-        console.error('insertVendorItems', error);
-        throw new Error("Error inserting vendor items");
-      }
+      //   return "Success";
+      // } catch (error) {
+      //   console.error('insertVendorItems', error);
+      //   throw new Error("Error inserting vendor items");
+      // }
+      return "Success";
     },
   }
 }
