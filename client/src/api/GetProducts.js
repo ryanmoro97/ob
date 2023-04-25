@@ -6,7 +6,7 @@ import { gql } from '@apollo/client';
 const GET_PRODUCT_VALUES = gql`
   query getProductsValues($filters: FiltersInput!) {
     getProductsValues(filters: $filters) {
-      id,
+      product_id,
       description,
       model_id,
       sku,
@@ -24,7 +24,7 @@ const GET_PRODUCT_VALUES = gql`
 const GET_VENDOR_PRODUCT_VALUES = gql`
   query getVendorProductsValues($table: Int!, $filters: FiltersInput!) {
     getVendorProductsValues(table: $table, filters: $filters) {
-      id,
+      product_id,
       description,
       brand,
       upc,
@@ -61,6 +61,7 @@ const getProductsValues = async () => {
     }
     // vendor table query
     else{
+      console.log('YOOOO', table);
       const { data } = await client.query({
         query: GET_VENDOR_PRODUCT_VALUES,
         variables: { table: table, filters: nonEmptyFilters },

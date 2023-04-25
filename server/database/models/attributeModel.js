@@ -3,7 +3,7 @@ const db = require('../db');
 
 const CreateAttributeTable = (tableName, valueDataType, valueLength = null, isValueUnique = false) => {
   return db.define(tableName, {
-    productId: {
+    product_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },

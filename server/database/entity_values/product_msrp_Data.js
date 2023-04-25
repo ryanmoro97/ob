@@ -1,14 +1,14 @@
 module.exports = [
     {
-      productId: 1,
+      product_id: 1,
       value: 234.55
     },
     {
-      productId: 2,
+      product_id: 2,
       value: 24.21
     },
     {
-      productId: 3,
+      product_id: 3,
       value: 8.99
     }
   ];

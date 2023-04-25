@@ -15,7 +15,7 @@ function DropdownMenu({ options, className, onChange }) {
     <div>
       <select className = "select" value={selectedOption.value} onChange={handleChange}>
         {options.map((option) => (
-          <option className = "select-options" key={option.id || option.taxonomyId} value={option.value}>
+          <option className = "select-options" key={option.id || option.taxonomy_id} value={option.value}>
             {option.value}
           </option>
         ))}

@@ -5,11 +5,11 @@ type Query {
 }
 
 type Mutation {
-  insertVendorProducts(products: [VendorProductInput!]!, vendorID: Int!, sub_category: String!): String!
+  insertVendorProducts(products: [VendorProductInput!]!, vendor_id: Int!, sub_category: String!): String!
 }
 
 type Taxonomy {
-  taxonomyId: Int!
+  taxonomy_id: Int!
   value: String!
 }
 
@@ -26,7 +26,7 @@ input FiltersInput {
 
 # product_obsession table
 type Product {
-  id: Int!
+  product_id: Int!
   description: String
   model_id: String
   sku: String
@@ -44,7 +44,7 @@ type Product {
 
 # vendor product table
 type VendorProduct {
-  id: Int!
+  product_id: Int!
   description: String
 
   brand: String
@@ -57,7 +57,7 @@ type VendorProduct {
 }
 
 input VendorProductInput {
-  id: Int!
+  product_id: Int!
   description: String
 
   brand: String

@@ -1,15 +1,15 @@
 module.exports = [
   // SUB CATEGORY
   {
-    taxonomyId: 1,
+    taxonomy_id: 1,
     value: 'Bag'
   },
   {
-    taxonomyId: 2,
+    taxonomy_id: 2,
     value: 'Rear Derailluer'
   },
   {
-    taxonomyId: 3,
+    taxonomy_id: 3,
     value: 'Suspension'
   },
 ];

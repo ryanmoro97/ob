@@ -1,19 +1,19 @@
 module.exports = [
   // BRANDS
   {
-    taxonomyId: 30,
+    taxonomy_id: 30,
     value: 'Bontrager'
   },
   {
-    taxonomyId: 274,
+    taxonomy_id: 274,
     value: 'Shimano'
   },
   {
-    taxonomyId: 327,
+    taxonomy_id: 327,
     value: 'Trek'
   },
   {
-    taxonomyId: 69,
+    taxonomy_id: 69,
     value: 'SRAM'
   },
 ];

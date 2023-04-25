@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 const GET_TAXONOMY_VALUES = gql`
   query getTaxonomyValues($taxonomyClass: String!) {
     getTaxonomyValues(taxonomyClass: $taxonomyClass) {
-      taxonomyId
+      taxonomy_id
       value
     }
   }

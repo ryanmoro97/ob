@@ -3,7 +3,7 @@ const db = require('../db');
 
 const CreateVendorProductTable = (tablename) => {
     return db.define(tablename, {
-        id: {
+        product_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true

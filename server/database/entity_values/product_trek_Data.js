@@ -1,6 +1,6 @@
 module.exports = [
     {
-        id: 1,
+        product_id: 1,
         description: 'Trunk Bag',
         brand: 'Trek',
         upc: '827348399291',
@@ -8,7 +8,7 @@ module.exports = [
         color: ['Grey']
     },
     {
-        id: 2,
+        product_id: 2,
         description: 'Elite Shirt',
         brand: 'Bontrager',
         upc: '827336399291',
@@ -17,7 +17,7 @@ module.exports = [
         color: ['Red', 'Blue']
     },
     {
-        id: 3,
+        product_id: 3,
         description: 'Trek Cassette',
         brand: 'Trek',
         upc: '827348699291',

@@ -41,8 +41,8 @@ const constructWhereClause = (filters, vendortable = false) => {
   if (filters.descriptionFilter) {
     whereClause = { ...whereClause, description: { [Op.iLike]: `%${filters.descriptionFilter}%` }};
   }
-  if (filters.modelIdFilter) { // matches beginning onwards
-    whereClause = { ...whereClause, model_id: { [Op.iLike]: `${filters.modelIdFilter}%` }};
+  if (filters.modelIDFilter) { // matches beginning onwards
+    whereClause = { ...whereClause, model_id: { [Op.iLike]: `${filters.modelIDFilter}%` }};
   } 
   if (filters.skuFilter) { // matches beginning onwards
     whereClause = { ...whereClause, sku: { [Op.iLike]: `${filters.skuFilter}%` }};
@@ -66,7 +66,7 @@ const resolvers = {
           }
 
           const taxonomyValues = await TaxonomyModel.findAll({
-              attributes: ['taxonomyId', 'value']
+              attributes: ['taxonomy_id', 'value']
           });
           return taxonomyValues
       },
@@ -119,7 +119,7 @@ const resolvers = {
         const whereClause = constructWhereClause(filters, vendortable = true);
         try {
           const modelNames = Object.keys(db.models);
-          const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomyId: table }});
+          const vendorTable = await TaxonomyVendorTable.findOne({ where: { taxonomy_id: table }});
           const products = await db.model(vendorTable.value).findAll({where: whereClause});
           return products;
         }
@@ -136,34 +136,75 @@ const resolvers = {
     insertVendorProducts: async (_, { products, vendorID, sub_category }) => {
       console.log('insertVendorProducts', products, vendorID, sub_category);
 
-      // try {
-      //   // get sub_category id
-      //   const subCategory = await TaxonomySubCategory.findOne({ where: { value: sub_category } });
-      //   if (!subCategory) {
-      //     throw new Error(`Sub Category: '${sub_category}' not found`);
-      //   }
-      //   console.log('subCategory', subCategory);
-      //   // const subCategoryId = subCategory.id;
+      try {
+        // get sub_category id
+        const sub_category = await TaxonomySubCategory.findOne({ where: { value: sub_category } });
+        if (!sub_category) {
+          throw new Error(`Sub Category: '${sub_category}' not found`);
+        }
+        const sub_category_id = sub_category.taxonomy_id;
 
-      //   // const createdProducts = [];
-      //   // for (const product of products) {
-      //   //   try {
-      //   //     const productInstance = Product.build({
-      //   //       description: product.description,
-      //   //     });
-      //   //     await productInstance.save();
-      //   //     console.log('Inserted product ID:', productInstance.id);
-      //   //     createdProducts.push(productInstance);
-      //   //   } catch (error) {
-      //   //     console.log(`Error inserting product with ID ${product.id}:`, error.message);
-      //   //   }
-      //   // }
+        // insert products one at a time to avoid total insert failure on validation error
+        const createdProducts = [];
+        for (const product of products) {
+          try {
+            await sequelize.transaction(async (t) => {
+              // insert product and get id for attribute insertions
+              const productInstance = await Product.create(
+                { description: product.description },
+                { transaction: t }
+              );
+              createdProducts.push(productInstance);
+              const product_id = productInstance.product_id;
+            
+              // brand value from vendor table is Value, need id for ProductBrand table insertion
+              const taxonomyBrand = await TaxonomyBrand.findOne({ where: { value: product.brand } });
+              if (!taxonomyBrand) {
+                throw new Error(`Brand: '${product.brand}' not found`);
+              }
+              const brand_id = taxonomyBrand.taxonomy_id;
+              
+              // insert product attributes with product_id foreign key
+              const attributePromises = [
+                { model: ProductBrand, data: { product_id, brand: brand_id } },
+                { model: ProductUPC, data: { product_id, value: product.upc } },
+                { model: ProductMSRP, data: { product_id, value: product.msrp } },
+                { model: ProductSize, data: { product_id, value: product.size } },
+                { model: ProductColor, data: { product_id, value: product.color } },
+                { model: ProductSpeed, data: { product_id, value: product.speed } },
+              ]
+                .filter(attribute => attribute.data.value !== null)
+                .map(attribute => attribute.model.create(attribute.data, { transaction: t }));
+              
+              await Promise.all(attributePromises);
+              
+              // need to build product vendor table
+              // await ProductVendor.create({
+              //   product_id: product_id,
+              //   vendor: product.vendor,
+              // });
+              // need to build subcat, cat references to subcategory
+              // await ProductSubCategory.create({
+              //   product_id: product_id,
+              //   sub_category: subCategoryID,
+              // });
+              // await ProductCategory.create({
+              //   product_id: product_id,
+              //   category: subCategory.taxonomy_category_id,
+              // });
+            });
+            console.log('Inserted ProductBrand:', productBrandInstance);
+
+          } catch (error) {
+            console.log(`Error inserting product with ID ${product.product_id}:`, error.message);
+          }
+        }
         
-      //   return "Success";
-      // } catch (error) {
-      //   console.error('insertVendorItems', error);
-      //   throw new Error("Error inserting vendor items");
-      // }
+        return "Success";
+      } catch (error) {
+        console.error('insertVendorItems', error);
+        throw new Error("Error inserting vendor items");
+      }
       return "Success";
     },
   }

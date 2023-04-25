@@ -1,27 +1,27 @@
 module.exports = [
   // CATEGORY
   {
-    taxonomyId: 1,
+    taxonomy_id: 1,
     value: 'Bike'
   },
   {
-    taxonomyId: 2,
+    taxonomy_id: 2,
     value: 'Part'
   },
   {
-    taxonomyId: 3,
+    taxonomy_id: 3,
     value: 'Accessory'
   },
   {
-    taxonomyId: 4,
+    taxonomy_id: 4,
     value: 'Clothing'
   },
   {
-    taxonomyId: 5,
+    taxonomy_id: 5,
     value: 'eBike'
   },
   {
-    taxonomyId: 6,
+    taxonomy_id: 6,
     value: 'Safety'
   },
 ];

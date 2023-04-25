@@ -28,33 +28,35 @@ const ProductSpeed = CreateAttributeTable('product_speed', DataTypes.TEXT);
 const ProductTrek = CreateVendorProductTable('product_trek');
 
 // taxonomy relationships
-ProductBrand.belongsTo(TaxonomyBrand, { foreignKey: 'value', targetKey: 'taxonomyId' });
-TaxonomyBrand.hasMany(ProductBrand, { foreignKey: 'value', sourceKey: 'taxonomyId' });
+ProductBrand.belongsTo(TaxonomyBrand, { foreignKey: 'value', targetKey: 'taxonomy_id' });
+TaxonomyBrand.hasMany(ProductBrand, { foreignKey: 'value', sourceKey: 'taxonomy_id' });
 
-ProductCategory.belongsTo(TaxonomyCategory, { foreignKey: 'value', targetKey: 'taxonomyId' });
-TaxonomyCategory.hasMany(ProductCategory, { foreignKey: 'value', sourceKey: 'taxonomyId' });
+ProductCategory.belongsTo(TaxonomyCategory, { foreignKey: 'value', targetKey: 'taxonomy_id' });
+TaxonomyCategory.hasMany(ProductCategory, { foreignKey: 'value', sourceKey: 'taxonomy_id' });
 
-ProductSubCategory.belongsTo(TaxonomySubCategory, { foreignKey: 'value', targetKey: 'taxonomyId' });
-TaxonomySubCategory.hasMany(ProductSubCategory, { foreignKey: 'value', sourceKey: 'taxonomyId' });
+ProductSubCategory.belongsTo(TaxonomySubCategory, { foreignKey: 'value', targetKey: 'taxonomy_id' });
+TaxonomySubCategory.hasMany(ProductSubCategory, { foreignKey: 'value', sourceKey: 'taxonomy_id' });
 
 // Product relationships
-Product.hasOne(ProductBrand);
-ProductBrand.belongsTo(Product);
-Product.hasOne(ProductCategory);
-ProductCategory.belongsTo(Product);
-Product.hasOne(ProductSubCategory);
-ProductSubCategory.belongsTo(Product);
+// Product relationships
+Product.hasOne(ProductBrand, { foreignKey: 'product_id' });
+ProductBrand.belongsTo(Product, { foreignKey: 'product_id' });
+Product.hasOne(ProductCategory, { foreignKey: 'product_id' });
+ProductCategory.belongsTo(Product, { foreignKey: 'product_id' });
+Product.hasOne(ProductSubCategory, { foreignKey: 'product_id' });
+ProductSubCategory.belongsTo(Product, { foreignKey: 'product_id' });
 
-Product.hasOne(ProductUPC);
-ProductUPC.belongsTo(Product);
-Product.hasOne(ProductMSRP);
-ProductMSRP.belongsTo(Product);
-Product.hasOne(ProductSize); 
-ProductSize.belongsTo(Product);
-Product.hasOne(ProductColor);
-ProductColor.belongsTo(Product);
-Product.hasOne(ProductSpeed); 
-ProductSpeed.belongsTo(Product);
+Product.hasOne(ProductUPC, { foreignKey: 'product_id' });
+ProductUPC.belongsTo(Product, { foreignKey: 'product_id' });
+Product.hasOne(ProductMSRP, { foreignKey: 'product_id' });
+ProductMSRP.belongsTo(Product, { foreignKey: 'product_id' });
+Product.hasOne(ProductSize, { foreignKey: 'product_id' }); 
+ProductSize.belongsTo(Product, { foreignKey: 'product_id' });
+Product.hasOne(ProductColor, { foreignKey: 'product_id' });
+ProductColor.belongsTo(Product, { foreignKey: 'product_id' });
+Product.hasOne(ProductSpeed, { foreignKey: 'product_id' }); 
+ProductSpeed.belongsTo(Product, { foreignKey: 'product_id' });
+
   
 const createTables = async () => {
     try {

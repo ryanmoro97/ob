@@ -1,6 +1,6 @@
 module.exports = [
     {
-      productId: 2,
+      product_id: 2,
       value: '12'
     }
   ];

@@ -30,7 +30,7 @@ function QueryButtons({ triggerFetchData, queryUpdate, queryUpdatePrice, queryRe
   };
 
   const handleVendorChange = (selected) => {
-    store.dispatch({ type: 'SET_TABLE', payload: selected.taxonomyId });
+    store.dispatch({ type: 'SET_TABLE', payload: selected.taxonomy_id });
   }
 
   const handleFileInputChange = (event) => {

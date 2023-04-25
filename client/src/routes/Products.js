@@ -87,7 +87,7 @@ const Products = () => {
         setProducts(updatedProducts);
 
         const updatedModifiedProducts = _.cloneDeep(modifiedProducts);
-        const existingProductIndex = updatedModifiedProducts.findIndex(product => product.id === updatedProducts[rowIndex].id);
+        const existingProductIndex = updatedModifiedProducts.findIndex(product => product.product_id === updatedProducts[rowIndex].product_id);
         if (existingProductIndex > -1) {
             updatedModifiedProducts[existingProductIndex] = updatedProducts[rowIndex];
         } else {

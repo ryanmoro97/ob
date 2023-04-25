@@ -4,11 +4,11 @@ const queryBCExport = (products) => {
     console.log('queryAIMExport');
     console.log(products)
     const fieldMappings = {
+        product_id: 'ID',
         brand: 'Brand',
         category: 'Category',
         color: 'Color',
         description: 'Description',
-        id: 'ID',
         model_id: 'Model ID',
         msrp: 'MSRP',
         size: 'Size',

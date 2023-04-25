@@ -1,19 +1,19 @@
 module.exports = [
   // VENDORS
   {
-    taxonomyId: 100,
+    taxonomy_id: 100,
     value: 'Race Face / Fox'
   },
   {
-    taxonomyId: 22,
+    taxonomy_id: 22,
     value: 'Shimano'
   },
   {
-    taxonomyId: 169,
+    taxonomy_id: 169,
     value: 'Trek'
   },
   {
-    taxonomyId: 69,
+    taxonomy_id: 69,
     value: 'HLC'
   }
 ];
